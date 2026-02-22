@@ -1,0 +1,1 @@
+alias yt='ytdl.sh'
