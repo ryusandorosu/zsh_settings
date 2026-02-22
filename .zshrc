@@ -15,12 +15,10 @@ case "$OS_ID" in
     for file in ~/zsh_settings/server/*.zsh; do
       source "$file"
     done
-    # source ~/zsh_settings/server/*.zsh
     ;;
   ubuntu)
     for file in ~/zsh_settings/wsl/*.zsh; do
       source "$file"
     done
-    # source ~/zsh_settings/wsl/*.zsh
     ;;
 esac
