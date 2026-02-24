@@ -6,6 +6,7 @@ source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
 
 # Custom settings
+cd ~/zsh_settings && git pull && cd ~
 OS_ID=$(grep '^ID=' /etc/os-release | cut -d= -f2)
 for file in ~/zsh_settings/common/*.zsh; do
   source "$file"
