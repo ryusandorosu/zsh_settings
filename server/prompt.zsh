@@ -1,6 +1,7 @@
 if [[ "$ZSH_THEME" == "pmcgee" ]]; then
-NAMECOLOR="red"
+NAMECOLOR="yellow"
+HOSTCOLOR="red"
 PATHCOLOR="white"
-TIMECOLOR="white"
-TIMEBACK="%K{black}"
+TIMEBACK="%K{yellow}"
+TIMECOLOR="black"
 fi
