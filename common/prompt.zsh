@@ -2,7 +2,7 @@ if [[ "$ZSH_THEME" == "pmcgee" ]]; then
 PROMPT='%{$fg[$NAMECOLOR]%}'
 PROMPT+='%n'
 PROMPT+='%{$reset_color%}'
-PROMPT+='@'
+PROMPT+=' @ '
 PROMPT+='%{$fg[$HOSTCOLOR]%}'
 PROMPT+='%m'
 PROMPT+='%{$reset_color%} '
