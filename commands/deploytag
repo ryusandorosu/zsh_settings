@@ -1,0 +1,3 @@
+#!/bin/bash
+playbook=/home/ryusandorosu/homeserver-ansible/playbook.yml
+ansible-playbook $playbook -l local --diff --tag $1 -vv
