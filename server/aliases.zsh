@@ -8,5 +8,5 @@ alias banlist='sudo fail2ban-client status $1'
 alias banlog='sudo cat /var/log/fail2ban.log'
 alias authlog='sudo cat /var/log/auth.log'
 
-alias nftbanlist='sudo nft list set inet filer $1'
+alias nftbanlist='sudo nft list set inet filter $1'
 alias nftrules='sudo nft list ruleset'
