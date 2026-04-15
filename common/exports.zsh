@@ -1,1 +1,1 @@
-export PATH=$PATH:$HOME/zsh_settings/commands
+export PATH=$PATH:$HOME/zsh_settings/common/commands

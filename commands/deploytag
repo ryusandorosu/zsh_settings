@@ -1,4 +1,0 @@
-#!/bin/bash
-playbook=/home/ryusandorosu/homeserver-ansible/playbooks/server.yml
-git -C /home/ryusandorosu/homeserver-ansible/ pull
-ansible-playbook $playbook -l localhost --diff --tag $1 -vv
