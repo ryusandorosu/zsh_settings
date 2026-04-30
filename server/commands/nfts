@@ -1,0 +1,19 @@
+#!/bin/bash
+# ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$'
+ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?)$'
+action=$1
+
+[[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" ]] && \
+echo "$(basename $0): incorrect action.
+usage: $(basename $0) ban/unban/list/rules set ip"
+
+[[ "$action" == "ban" ]] && action="add element"
+[[ "$action" == "unban" ]] && action="delete element"
+[[ "$action" == "list" ]] && action="list set"
+[[ "$action" == "rules" ]] && action="list table"
+jail=$2
+target=$3
+
+[[ "$target" =~ $ip_address ]] && \
+sudo $(nft $action inet filter $jail { $target }) || \
+echo "$(basename $0): incorrect input"

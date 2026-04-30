@@ -1,9 +1,16 @@
 #!/bin/bash
 ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?)$'
 action=$1
-[[ "$action" != "unban" && "$action" != "ban" ]] && echo "$(basename $0): incorrect action. ban or unban are expected"
+
+[[ "$action" != "unban" && "$action" != "ban" ]] && \
+echo "$(basename $0): incorrect action.
+usage: $(basename $0) ban/unban jail ip"
+
 [[ "$action" == "ban" ]] && action=banip
 [[ "$action" == "unban" ]] && action=unbanip
-target=$2
-jail=$3
-[[ "$target" =~ $ip_address ]] && sudo fail2ban-client set $jail $action $target || echo "$(basename $0): incorrect input of ip"
+jail=$2
+target=$3
+
+[[ "$target" =~ $ip_address ]] && \
+sudo fail2ban-client set $jail $action $target || \
+echo "$(basename $0): incorrect input of ip"
