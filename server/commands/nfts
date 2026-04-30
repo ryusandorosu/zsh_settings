@@ -14,10 +14,14 @@ usage: $(basename $0) ban/unban/list/rules set ip"
 jail=$2
 target=$3
 
-if [[ -n "$target" ]]; then
-  [[ "$target" =~ $ip_address ]] && \
-  sudo $(nft $action inet filter $jail { $target }) || \
-  echo "$(basename $0): incorrect input"
+if [[ -n "$target" && "$target" =~ $ip_address ]]; then
+  sudo nft $action inet filter $jail \{ $target \}
+elif [[ -n "$target" && ! ( "$target" =~ $ip_address ) ]]; then
+  echo "$(basename $0): incorrect ip input"
+elif [[ "$action" == *element && "$jail" =~ $ip_address ]]; then
+  echo "$(basename $0): ban/unban requires set before ip"
+elif [[ "$action" == *element && -z "$target" ]]; then
+  echo "$(basename $0): ban/unban requires ip"
 else
-  sudo $(nft $action inet filter $jail)
+  sudo nft $action inet filter $jail
 fi
