@@ -3,7 +3,7 @@
 ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?)$'
 action=$1
 
-[[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" ]] && \
+[[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" && "$action" != "rules" ]] && \
 echo "$(basename $0): incorrect action.
 usage: $(basename $0) ban/unban/list/rules set ip"
 
