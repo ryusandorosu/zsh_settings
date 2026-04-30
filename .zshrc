@@ -2,14 +2,11 @@ OS_ID=$(grep '^ID=' /etc/os-release | cut -d= -f2)
 
 # Main settings
 export ZSH="$HOME/.oh-my-zsh"
-[[ "$OS_ID" == debian ]] && ZSH_THEME="pmcgee"
-[[ "$OS_ID" == ubuntu ]] && ZSH_THEME="pmcgee"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-source $ZSH/oh-my-zsh.sh
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
+[[ "$OS_ID" == debian ]] && ZSH_THEME="passion"
+[[ "$OS_ID" == ubuntu ]] && ZSH_THEME="passion"
 
 # Custom settings
-cd ~/zsh_settings && git pull && cd ~
+# cd ~/zsh_settings && git pull && cd ~ #do it only at boot
 for file in ~/zsh_settings/common/*.zsh; do
   source "$file"
 done
@@ -25,3 +22,7 @@ case "$OS_ID" in
     done
     ;;
 esac
+
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+source $ZSH/oh-my-zsh.sh
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
