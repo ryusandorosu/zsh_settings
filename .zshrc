@@ -4,6 +4,7 @@ OS_ID=$(grep '^ID=' /etc/os-release | cut -d= -f2)
 export ZSH="$HOME/.oh-my-zsh"
 [[ "$OS_ID" == debian ]] && ZSH_THEME="passion"
 [[ "$OS_ID" == ubuntu ]] && ZSH_THEME="passion"
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 # Custom settings
 # cd ~/zsh_settings && git pull && cd ~ #do it only at boot
@@ -23,6 +24,5 @@ case "$OS_ID" in
     ;;
 esac
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)

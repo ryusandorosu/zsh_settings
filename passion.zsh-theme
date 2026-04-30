@@ -123,7 +123,7 @@ output_command_execute_after() {
     then
         color_cmd="$fg_no_bold[$cost_prompt_color_command]";
     else
-        color_cmd="$fg_bold[red]";
+        color_cmd="$fg_no_bold[red]";
     fi
     local color_reset="$reset_color";
     cmd="${color_cmd}${cmd}${color_reset}"
