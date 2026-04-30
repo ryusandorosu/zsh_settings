@@ -14,6 +14,10 @@ usage: $(basename $0) ban/unban/list/rules set ip"
 jail=$2
 target=$3
 
-[[ "$action" == *element && "$target" =~ $ip_address ]] && \
-sudo $(nft $action inet filter $jail { $target }) || \
-echo "$(basename $0): incorrect input"
+if [[ -n "$target" ]]; then
+  [[ "$target" =~ $ip_address ]] && \
+  sudo $(nft $action inet filter $jail { $target }) || \
+  echo "$(basename $0): incorrect input"
+else
+  sudo $(nft $action inet filter $jail)
+fi
