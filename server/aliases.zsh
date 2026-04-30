@@ -1,9 +1,5 @@
 # common
 alias etcgit='sudo git -C /etc'
-alias bat='batcat'
-
-# ansible
-alias deploytag='sh /home/ryusandorosu/zsh_settings/commands/deploytag'
 
 # fail2ban
 alias banlist='sudo fail2ban-client status $1'
