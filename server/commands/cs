@@ -1,0 +1,36 @@
+#!/bin/bash
+# ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$'
+ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?)$'
+action=$1
+
+[[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" && "$action" != "ignore" && "$action" != "ignorelist" ]] && \
+echo "$(basename $0): incorrect action.
+usage: $(basename $0) ban/ignore ip (time)
+usage: $(basename $0) unban ip
+usage: $(basename $0) list/ignorelist
+"
+
+jail=le_whitelist
+target=$2
+time=$3
+[[ "$action" == "ban" ]] && result_action="decisions add --ip"
+[[ "$action" == "unban" ]] && result_action="decisions delete --ip"
+[[ "$action" == "list" ]] && result_action="decisions list"
+[[ "$action" == "ignore" ]] && result_action="allowlists add $jail"
+[[ "$action" == "ignorelist" ]] && result_action="allowlists inspect $jail"
+
+if [[ -n "$target" && "$target" =~ $ip_address ]]; then
+  if [[ -n "$time" ]] && [[ "$action" == "ban" ]]; then
+    sudo cscli $result_action $target --duration $time
+  elif [[ -n "$time" ]] && [[ "$action" == "ignore" ]]; then
+    sudo cscli $result_action $target --expiration $time
+  else
+    sudo cscli $result_action $target
+  fi
+elif [[ -n "$target" && ! ( "$target" =~ $ip_address ) ]]; then
+  echo "$(basename $0): incorrect ip input"
+elif [[ "$action" == *--ip && -z "$target" ]]; then
+  echo "$(basename $0): ban/unban requires ip"
+else
+  sudo cscli $result_action
+fi

@@ -5,7 +5,10 @@ action=$1
 
 [[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" && "$action" != "rules" ]] && \
 echo "$(basename $0): incorrect action.
-usage: $(basename $0) ban/unban/list/rules set ip"
+usage: $(basename $0) ban set ip (time)
+usage: $(basename $0) unban set ip
+usage: $(basename $0) list/rules
+"
 
 [[ "$action" == "ban" ]] && action="add element"
 [[ "$action" == "unban" ]] && action="delete element"
