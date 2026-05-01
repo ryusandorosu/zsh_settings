@@ -13,9 +13,14 @@ usage: $(basename $0) ban/unban/list/rules set ip"
 [[ "$action" == "rules" ]] && action="list table"
 jail=$2
 target=$3
+time=$4
 
 if [[ -n "$target" && "$target" =~ $ip_address ]]; then
-  sudo nft $action inet filter $jail \{ $target \}
+  if [[ -n "$time" ]] && [[ "$jail" == "whitelist" || "$jail" == "blacklist" ]]; then
+    sudo nft $action inet filter $jail \{ $target timeout $time \}
+  else
+    sudo nft $action inet filter $jail \{ $target \}
+  fi
 elif [[ -n "$target" && ! ( "$target" =~ $ip_address ) ]]; then
   echo "$(basename $0): incorrect ip input"
 elif [[ "$action" == *element && "$jail" =~ $ip_address ]]; then

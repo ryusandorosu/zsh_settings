@@ -11,6 +11,12 @@ usage: $(basename $0) ban/unban jail ip"
 jail=$2
 target=$3
 
-[[ "$target" =~ $ip_address ]] && \
-sudo fail2ban-client set $jail $action $target || \
-echo "$(basename $0): incorrect input of ip"
+if [[ -n "$target" && "$target" =~ $ip_address ]]; then
+  sudo fail2ban-client set $jail $action $target
+elif [[ -n "$target" && ! ( "$target" =~ $ip_address ) ]]; then
+  echo "$(basename $0): incorrect ip input"
+elif [[ "$action" == *element && "$jail" =~ $ip_address ]]; then
+  echo "$(basename $0): ban/unban requires jail before ip"
+elif [[ "$action" == *element && -z "$target" ]]; then
+  echo "$(basename $0): ban/unban requires ip"
+fi
