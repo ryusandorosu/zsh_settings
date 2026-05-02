@@ -195,9 +195,11 @@ output_command_execute_after() {
 # REF: http://zsh.sourceforge.net/Doc/Release/Functions.html
 preexec() { # cspell:disable-line
     COMMAND_TIME_BEGIN="$(current_time_millis)";
+    # to show commands which aliases replace
     LAST_CMD_RAW="$1";
     LAST_CMD_EXPANDED="$2";
-    rm -f "$ZSH_SCRIPT_CMD_FILE"; # clean the hook file before each command
+    # clean the hook file before each command
+    rm -f "$ZSH_SCRIPT_CMD_FILE";
 }
 
 current_time_millis() {
