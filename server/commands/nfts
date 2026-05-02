@@ -1,6 +1,5 @@
 #!/bin/bash
-# ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$'
-ip_address='^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]?)$'
+. $HOME/zsh_settings/common/cmd_display.sh
 action=$1
 
 [[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" && "$action" != "rules" ]] && \
@@ -20,9 +19,9 @@ time=$4
 
 if [[ -n "$target" && "$target" =~ $ip_address ]]; then
   if [[ -n "$time" ]] && [[ "$jail" == "whitelist" || "$jail" == "blacklist" ]]; then
-    sudo nft $action inet filter $jail \{ $target timeout $time \}
+    zsh_cmd="sudo nft $action inet filter $jail { $target timeout $time }"
   else
-    sudo nft $action inet filter $jail \{ $target \}
+    zsh_cmd="sudo nft $action inet filter $jail { $target }"
   fi
 elif [[ -n "$target" && ! ( "$target" =~ $ip_address ) ]]; then
   echo "$(basename $0): incorrect ip input"
@@ -31,5 +30,7 @@ elif [[ "$action" == *element && "$jail" =~ $ip_address ]]; then
 elif [[ "$action" == *element && -z "$target" ]]; then
   echo "$(basename $0): ban/unban requires ip"
 else
-  sudo nft $action inet filter $jail
+  zsh_cmd="sudo nft $action inet filter $jail"
 fi
+
+zsh_eval "$zsh_cmd"

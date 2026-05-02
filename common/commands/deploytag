@@ -1,7 +1,11 @@
 #!/bin/bash
+. $HOME/zsh_settings/common/cmd_display.sh
+
 os_id=$(grep '^ID=' /etc/os-release | cut -d= -f2)
 [[ "$os_id" == "debian" ]] && deployhost=localhost
 [[ "$os_id" == "ubuntu" ]] && deployhost=remote
 playbook=/home/ryusandorosu/homeserver-ansible/playbooks/server.yml
 git -C /home/ryusandorosu/homeserver-ansible/ pull
-ansible-playbook $playbook -l $deployhost --diff --tag $1 -vv
+
+zsh_cmd="ansible-playbook $playbook -l $deployhost --diff --tag $1 -vv"
+zsh_eval "$zsh_cmd"

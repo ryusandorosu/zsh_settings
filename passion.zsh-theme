@@ -12,6 +12,35 @@ cost_prompt_color_cost=$cost_prompt_color
 cost_prompt_bracket_open=''
 cost_prompt_bracket_close=' |'
 
+. $HOME/zsh_settings/common/cmd_display.sh
+SCRIPT_DIRS=(
+    "$HOME/zsh_settings/common/commands"
+    "$HOME/zsh_settings/server/commands"
+)
+
+function _resolve_script_display_cmd() {
+    local raw_cmd="$1"
+    local cmd_name="${raw_cmd%% *}"
+    local cmd_args="${raw_cmd#* }"
+    [[ "$cmd_args" == "$cmd_name" ]] && cmd_args=""
+
+    # look for scripts in certain dirs to enable eval show
+    local script_path=""
+    for dir in "${SCRIPT_DIRS[@]}"; do
+        [[ -f "$dir/$cmd_name" ]] && { script_path="$dir/$cmd_name"; break; }
+    done
+    [[ -z "$script_path" ]] && return 1
+
+    # read hook file to display eval command
+    if [[ -f "$ZSH_SCRIPT_CMD_FILE" ]]; then
+        cat "$ZSH_SCRIPT_CMD_FILE"
+        return 0
+    fi
+
+    return 1
+}
+########################################################################################################
+
 # gdate for macOS
 # REF: https://apple.stackexchange.com/questions/135742/time-in-milliseconds-since-epoch-in-the-terminal
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -116,8 +145,10 @@ output_command_execute_after() {
         return 1;
     fi
 
-    # cmd — показываем раскрытый алиас, если он отличается от введённого
+    # show expanded alias if it differs from the input command
     local cmd;
+    local resolved;
+    resolved=$(_resolve_script_display_cmd "$LAST_CMD_RAW" 2>/dev/null);
     local color_cmd="";
     if $1;
     then
@@ -128,7 +159,10 @@ output_command_execute_after() {
     local color_reset="$reset_color";
     local color_alias="$fg_no_bold[cyan]";
 
-    if [[ -n "$LAST_CMD_EXPANDED" && "$LAST_CMD_EXPANDED" != "$LAST_CMD_RAW" ]]; then
+    if [[ -n "$resolved" ]]; then
+        # eval → real command
+        cmd="${color_alias}${LAST_CMD_RAW} → ${color_reset}${color_cmd}${resolved}${color_reset}"
+    elif [[ -n "$LAST_CMD_EXPANDED" && "$LAST_CMD_EXPANDED" != "$LAST_CMD_RAW" ]]; then
         # alias → real command
         cmd="${color_alias}${LAST_CMD_RAW} → ${color_reset}${color_cmd}${LAST_CMD_EXPANDED}${color_reset}";
     else
@@ -163,6 +197,7 @@ preexec() { # cspell:disable-line
     COMMAND_TIME_BEGIN="$(current_time_millis)";
     LAST_CMD_RAW="$1";
     LAST_CMD_EXPANDED="$2";
+    rm -f "$ZSH_SCRIPT_CMD_FILE"; # clean the hook file before each command
 }
 
 current_time_millis() {
