@@ -116,8 +116,8 @@ output_command_execute_after() {
         return 1;
     fi
 
-    # cmd
-    local cmd="$(fc -ln -1)";
+    # cmd — показываем раскрытый алиас, если он отличается от введённого
+    local cmd;
     local color_cmd="";
     if $1;
     then
@@ -126,7 +126,14 @@ output_command_execute_after() {
         color_cmd="$fg_no_bold[red]";
     fi
     local color_reset="$reset_color";
-    cmd="${color_cmd}${cmd}${color_reset}"
+    local color_alias="$fg_no_bold[cyan]";
+
+    if [[ -n "$LAST_CMD_EXPANDED" && "$LAST_CMD_EXPANDED" != "$LAST_CMD_RAW" ]]; then
+        # alias → real command
+        cmd="${color_alias}${LAST_CMD_RAW} → ${color_reset}${color_cmd}${LAST_CMD_EXPANDED}${color_reset}";
+    else
+        cmd="${color_cmd}${LAST_CMD_RAW}${color_reset}";
+    fi
 
     # time
     local time="$cost_prompt_bracket_open$(date +%H:%M:%S)$cost_prompt_bracket_close"
@@ -154,6 +161,8 @@ output_command_execute_after() {
 # REF: http://zsh.sourceforge.net/Doc/Release/Functions.html
 preexec() { # cspell:disable-line
     COMMAND_TIME_BEGIN="$(current_time_millis)";
+    LAST_CMD_RAW="$1";
+    LAST_CMD_EXPANDED="$2";
 }
 
 current_time_millis() {
