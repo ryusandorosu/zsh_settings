@@ -2,11 +2,11 @@
 . $HOME/zsh_settings/common/cmd_display.sh
 action=$1
 
-[[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" && "$action" != "ignore" && "$action" != "ignorelist" ]] && \
+[[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" && "$action" != "ignore" && "$action" != "ignorelist" && "$action" != "alert" ]] && \
 echo "$(basename $0): incorrect action.
 usage: $(basename $0) ban/ignore ip (time)
 usage: $(basename $0) unban ip
-usage: $(basename $0) list/ignorelist
+usage: $(basename $0) list/ignorelist/alert
 "
 
 jail=le_whitelist
@@ -15,6 +15,7 @@ time=$3
 [[ "$action" == "ban" ]] && result_action="decisions add --ip"
 [[ "$action" == "unban" ]] && result_action="decisions delete --ip"
 [[ "$action" == "list" ]] && result_action="decisions list"
+[[ "$action" == "alert" ]] && result_action="alerts list"
 [[ "$action" == "ignore" ]] && result_action="allowlists add $jail"
 [[ "$action" == "ignorelist" ]] && result_action="allowlists inspect $jail"
 
