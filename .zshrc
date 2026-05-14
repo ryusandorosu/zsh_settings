@@ -7,6 +7,7 @@ export ZSH="$HOME/.oh-my-zsh"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
+source /etc/zsh_command_not_found
 
 # Custom settings
 # cd ~/zsh_settings && git pull && cd ~ #do it only at boot
@@ -26,5 +27,5 @@ case "$OS_ID" in
     ;;
 esac
 
-source $ZSH/oh-my-zsh.sh
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
+# source $ZSH/oh-my-zsh.sh
+# ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
