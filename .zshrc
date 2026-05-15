@@ -27,5 +27,4 @@ case "$OS_ID" in
     ;;
 esac
 
-# source $ZSH/oh-my-zsh.sh
-# ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
+[[ $ZSH_THEME == "passion" ]] && source "$ZSH/themes/passion.zsh-theme"
