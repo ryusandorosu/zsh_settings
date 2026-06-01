@@ -1,13 +1,14 @@
-OS_ID=$(grep '^ID=' /etc/os-release | cut -d= -f2)
+[[ -f "/etc/os-release" ]] && OS_ID=$(grep -q '^ID=' /etc/os-release | cut -d= -f2)
+[[ -z "$OS_ID" ]] && OS_ID=$(uname)
 
 # Main settings
 export ZSH="$HOME/.oh-my-zsh"
 [[ "$OS_ID" == debian ]] && ZSH_THEME="passion"
 [[ "$OS_ID" == ubuntu ]] && ZSH_THEME="passion"
+[[ "$OS_ID" == Darwin ]] && ZSH_THEME="passion"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
-source /etc/zsh_command_not_found
 
 # Custom settings
 # cd ~/zsh_settings && git pull && cd ~ #do it only at boot
@@ -22,6 +23,11 @@ case "$OS_ID" in
     ;;
   ubuntu)
     for file in ~/zsh_settings/wsl/*.zsh; do
+      source "$file"
+    done
+    ;;
+  Darwin)
+    for file in ~/zsh_settings/macos/*.zsh; do
       source "$file"
     done
     ;;
