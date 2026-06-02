@@ -1,5 +1,4 @@
-[[ -f "/etc/os-release" ]] && OS_ID=$(grep -q '^ID=' /etc/os-release | cut -d= -f2)
-[[ -z "$OS_ID" ]] && OS_ID=$(uname)
+[[ -f "/etc/os-release" ]] && OS_ID=$(grep '^ID=' /etc/os-release | cut -d= -f2) || OS_ID=$(uname)
 
 # Main settings
 export ZSH="$HOME/.oh-my-zsh"
