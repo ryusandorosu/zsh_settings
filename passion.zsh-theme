@@ -186,7 +186,7 @@ output_command_execute_after() {
 
     # exit code
     [[ "$last_cmd_return_code" == 0 ]] && local color_exit="$fg_no_bold[$cost_prompt_color_cost]" || local color_exit="$fg_no_bold[red]";
-    exitcode="${color_exit}${last_cmd_return_code}:${color_reset}"
+    exitcode="${color_exit}returned ${last_cmd_return_code}:${color_reset}"
 
     echo -e "${time} ${cost} ${exitcode} ${cmd}";
 }
