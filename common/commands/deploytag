@@ -7,5 +7,5 @@ os_id=$(grep '^ID=' /etc/os-release | cut -d= -f2)
 playbook=/home/ryusandorosu/homeserver-ansible/playbooks/server.yml
 git -C /home/ryusandorosu/homeserver-ansible/ pull
 
-zsh_cmd="ansible-playbook $playbook -l $deployhost --diff --tag $1 -vv"
+zsh_cmd="ansible-playbook $playbook --limit $deployhost --diff --tag $1 -vv"
 zsh_eval "$zsh_cmd"
