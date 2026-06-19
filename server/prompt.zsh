@@ -8,4 +8,8 @@ elif [[ "$ZSH_THEME" == "passion" ]]; then
 main_prompt_color=yellow
 arrow_color=yellow
 cost_prompt_color=grey
+  if [[ "$(whoami)" == root ]]; then
+  main_prompt_color=red
+  arrow_color=white
+  fi
 fi
