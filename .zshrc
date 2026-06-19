@@ -18,26 +18,26 @@ if [[ "$(whoami)" == root ]]; then
     | uniq \
   )/zsh_settings"
 else
-  repo_dir="~/zsh_settings"
+  repo_dir="/home/$(whoami)/zsh_settings"
 fi
 
 # Custom settings
-for file in $repo_dir/common/*.zsh; do
+for file in "$repo_dir"/common/*.zsh; do
   source "$file"
 done
 case "$OS_ID" in
   debian)
-    for file in $repo_dir/server/*.zsh; do
+    for file in "$repo_dir"/server/*.zsh; do
       source "$file"
     done
     ;;
   ubuntu)
-    for file in $repo_dir/wsl/*.zsh; do
+    for file in "$repo_dir"/wsl/*.zsh; do
       source "$file"
     done
     ;;
   Darwin)
-    for file in $repo_dir/macos/*.zsh; do
+    for file in "$repo_dir"/macos/*.zsh; do
       source "$file"
     done
     ;;
