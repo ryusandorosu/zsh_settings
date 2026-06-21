@@ -3,7 +3,14 @@
 
 os_id=$(grep '^ID=' /etc/os-release | cut -d= -f2)
 [[ "$os_id" == "debian" ]] && echo "denied" && exit 1
-[[ "$os_id" == "ubuntu" ]] && identity=~/.ssh/id_nuc_server
+[[ "$os_id" == "ubuntu" ]] && identity=~/.ssh/nuc_server
 
-zsh_cmd="ssh -L $1:127.0.0.1:$1 -p 2222 -i $identity ryusandorosu@87.117.169.26"
+zsh_cmd="ssh \
+-N \
+-L \
+$1:127.0.0.1:$1 \
+-p 22 \
+-i $identity \
+ryusandorosu@192.168.0.100 \
+"
 zsh_eval "$zsh_cmd"

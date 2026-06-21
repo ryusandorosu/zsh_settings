@@ -2,10 +2,33 @@
 . $HOME/zsh_settings/common/cmd_display.sh
 
 os_id=$(grep '^ID=' /etc/os-release | cut -d= -f2)
-[[ "$os_id" == "debian" ]] && deployhost=local
-[[ "$os_id" == "ubuntu" ]] && deployhost=remote
-playbook=/home/ryusandorosu/homeserver-ansible/playbooks/server.yml
+if [[ "$os_id" == "debian" && -z "$2" ]]; then
+  deployhost=local
+  playbook=server
+  verbosity=-vv
+elif [[ "$os_id" == "debian" && -n "$2" ]]; then
+  [[ "$2" != asus || "$2" != honor ]] && echo "$(basename $0): second argument accepts only 'asus' or 'honor' option" && exit 1
+  deployhost=$2
+  playbook=windows
+  verbosity=-vvv
+elif [[ "$os_id" == "ubuntu" && -z "$2" ]]; then
+  deployhost=remote
+  playbook=server
+  verbosity=-vv
+elif [[ "$os_id" == "ubuntu" && -n "$2" ]]; then
+  [[ "$2" != win ]] && echo "$(basename $0): second argument accepts only 'win' option" && exit 1
+  [[ "$(hostname)" == DESKTOP-5EFI5KM ]] && deployhost=local-asus
+  [[ "$(hostname)" == DESKTOP-2MJ0UCN ]] && deployhost=local-honor
+  playbook=windows
+  verbosity=-vvv
+fi
 git -C /home/ryusandorosu/homeserver-ansible/ pull
 
-zsh_cmd="ansible-playbook $playbook --limit $deployhost --diff --tag $1 -vv"
+zsh_cmd="ansible-playbook \
+/home/ryusandorosu/homeserver-ansible/playbooks/$playbook.yml \
+--limit $deployhost \
+--diff \
+--tag $1 \
+$verbosity \
+"
 zsh_eval "$zsh_cmd"
