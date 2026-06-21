@@ -5,3 +5,10 @@ export PATH="$PATH:/usr/sbin:/sbin"
 export PATH="$PATH:/home/ryusandorosu/.local/bin"
 #Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+#for wezterm
+function osc7_pwd() {
+  printf '\e]7;file://%s%s\e\\' "$HOST" "$PWD"
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd osc7_pwd
+add-zsh-hook precmd osc7_pwd
