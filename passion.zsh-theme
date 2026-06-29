@@ -155,7 +155,7 @@ output_command_execute_after() {
         color_cmd="$fg_no_bold[red]";
     fi
     local color_reset="$reset_color";
-    local color_alias="$fg_no_bold[cyan]";
+    local color_alias="$fg_no_bold[$cost_prompt_color_command]";
 
     if [[ -n "$resolved" ]]; then
         # eval → real command
