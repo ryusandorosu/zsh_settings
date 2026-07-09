@@ -20,6 +20,11 @@ source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
 
 # Custom settings
+if [[ "$OS_ID" != Darwin ]] && [[ ! -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  /bin/bash -c "$(
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  )"
+fi
 for file in ~/zsh_settings/common/*.zsh; do
   source "$file"
 done

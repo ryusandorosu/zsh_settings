@@ -1,4 +1,8 @@
 export PATH=$PATH:$HOME/zsh_settings/common/commands
 #ansible template renderer
 export PATH=$PATH:$HOME/homeserver-ansible/tools
-[[ "$OS_ID" != Darwin ]] && eval "$(fasd --init auto)"
+
+if [[ "$OS_ID" != Darwin ]]; then
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+eval "$(fasd --init auto)"
+fi
