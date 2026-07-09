@@ -32,6 +32,9 @@ elif [[ "$OS_ID" == ubuntu ]]; then
     source "$file"
   done
 elif [[ "$OS_ID" == Darwin ]]; then
+  [[ ! -d /Users/kaycekey/goinfre/.brew ]] && /Users/kaycekey/Desktop/install_brew.sh
+  [[ ! -d /opt/goinfre/kaycekey/.brew/Cellar/coreutils ]] && brew install coreutils
+  [[ ! -d /opt/goinfre/kaycekey/.brew/Cellar/fzf ]] && brew install fzf
   for file in ~/zsh_settings/macos/*.zsh; do
     source "$file"
   done

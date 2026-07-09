@@ -4,6 +4,4 @@
 s21 mac reminder:
 ```
 /System/Volumes/Data/Users/kaycekey/.oh-my-zsh
-./Desktop/install_brew.sh
-brew install coreutils
 ```
