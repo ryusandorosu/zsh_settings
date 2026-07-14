@@ -1,10 +1,11 @@
 #!/bin/bash
 . $HOME/zsh_settings/common/cmd_display.sh
 
-[[ -z "$2" ]] && zsh_cmd="find . -type f | grep --color=auto -R $1" || \
-zsh_cmd="find $2 -type f \
-| xargs -r \
-| grep --color=auto -R $1 \
+[[ -z "$2" ]] && zsh_cmd="grep --color=auto -R $1" || \
+zsh_cmd="grep \
+--color=auto \
+-R "$1" \
+"$2" \
 "
 
 zsh_eval "$zsh_cmd"
