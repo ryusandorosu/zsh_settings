@@ -11,6 +11,13 @@ bind_fileinfo=(
   'focus:+transform-header:file --brief {}'
 )
 
+bind_fileinfo_escaped() {
+  file_brief=(
+    --bind
+    \'focus:+transform-header:file --brief "$1"\'
+  )
+}
+
 bind_exec() {
   enter_become=(
     --bind
@@ -34,12 +41,20 @@ bat_view_simple() {
 bat_view_git() {
   bat_view=(
     --preview
-    "batcat --style=changes --color=always $1"
+    "batcat --style=changes,numbers --color=always $1"
   )
 }
 bat_view_git_escaped() {
   bat_view=(
     --preview
-    \'batcat --style=changes --color=always $1\'
+    \'batcat --style=changes,numbers --color=always $1\'
+  )
+}
+
+git_diff_view() {
+  [[ -n "$1" ]] && local repo_root="-C $1" || local repo_root=""
+  bat_view=(
+    --preview
+    \'git $repo_root diff --color=always --word-diff=color $2\'
   )
 }
