@@ -1,5 +1,5 @@
 alias cdf='cd'
-alias nvf='nvim'
+alias fvim='nvim'
 _fzf_comprun() {
   local command=$1
   shift
@@ -8,7 +8,7 @@ _fzf_comprun() {
     cdf|gitc) fasd -d | awk '{print $2}' | \
               fzf --tac --style=full --preview 'tree -C {} | head -200'    "$@" ;;
     nvim)     fzf --style=full --preview 'batcat --color=always {}'        "$@" ;;
-    nvf)      fasd -f | awk '{print $2}' | \
+    fvim)     fasd -f | awk '{print $2}' | \
               fzf --tac --style=full --preview 'batcat --color=always {}'  "$@" ;;
     ssh|autossh)  fzf --style=full --preview 'ping -c1 {}'                 "$@" ;;
     *)            fzf --style=full --preview 'fzf-preview.sh {}'           "$@" ;;
