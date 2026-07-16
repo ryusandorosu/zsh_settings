@@ -10,6 +10,7 @@ bind_fileinfo=(
   --bind
   'focus:+transform-header:file --brief {}'
 )
+
 bind_exec() {
   enter_become=(
     --bind
@@ -22,12 +23,14 @@ tree_view=(
   --preview
   'tree -C {} | head -200'
 )
+
 bat_view_simple() {
   bat_view=(
     --preview
     "batcat --color=always $1"
   )
 }
+
 bat_view_git() {
   bat_view=(
     --preview

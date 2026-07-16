@@ -7,14 +7,11 @@ if [[ -z "$1" ]]; then
   bat_view_git_escaped "{2}"
   bind_exec "$editor" "{2}"
   zsh_cmd="gitls | fzf "${fzstyle[@]}" "${bat_view[@]}" "${enter_become[@]}""
-  # gitls | fzf "${fzstyle[@]}" "${bat_view[@]}" "${enter_become[@]}"
 else
   repo_path=$(git -C "$1" rev-parse --show-toplevel)
   bat_view_git_escaped "$repo_path/{2}"
   bind_exec "$editor" "$repo_path/{2}"
   zsh_cmd="gitls "$1" | fzf "${fzstyle[@]}" "${bat_view[@]}" "${enter_become[@]}""
-  # gitls "$1" | fzf "${fzstyle[@]}" "${bat_view[@]}" "${enter_become[@]}"
 fi
 
 zsh_eval "$zsh_cmd"
-# zsh_eval "${zsh_cmd[@]}"

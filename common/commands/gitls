@@ -1,5 +1,4 @@
 #!/bin/bash
 source $ZSHREP/common/cmd_display.sh
-# [[ -z "$1" ]] && zsh_cmd="git ls-files -t --full-name" || zsh_cmd="git -C $1 ls-files -t --full-name"
-[[ -z "$1" ]] && zsh_cmd="git ls-files -t" || zsh_cmd="git -C $1 ls-files -t"
+[[ -z "$1" ]] && zsh_cmd="git ls-files -t --full-name" || zsh_cmd="git -C $1 ls-files -t --full-name"
 zsh_eval "$zsh_cmd"
