@@ -1,5 +1,5 @@
 #!/bin/bash
-. $HOME/zsh_settings/common/cmd_display.sh
+source $ZSHREP/common/cmd_display.sh
 action=$1
 
 [[ "$action" != "unban" && "$action" != "ban" && "$action" != "list" && "$action" != "ignore" && "$action" != "ignorelist" && "$action" != "alert" ]] && \

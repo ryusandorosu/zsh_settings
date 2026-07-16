@@ -1,5 +1,5 @@
 #!/bin/bash
-. $HOME/zsh_settings/common/cmd_display.sh
+source $ZSHREP/common/cmd_display.sh
 
 zsh_cmd="sudo journalctl -u $1 \
 | tac \

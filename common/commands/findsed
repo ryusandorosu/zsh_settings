@@ -1,5 +1,5 @@
 #!/bin/bash
-. $HOME/zsh_settings/common/cmd_display.sh
+source $ZSHREP/common/cmd_display.sh
 
 [[ -z "$2" ]] && dest="."
 zsh_cmd="find $dest -type f \

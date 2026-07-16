@@ -1,5 +1,5 @@
 #!/bin/bash
-. $HOME/zsh_settings/common/cmd_display.sh
+source $ZSHREP/common/cmd_display.sh
 
 if [[ -z "$1" ]]; then
   [[ -f ".gitignore" ]] && gitignore_arg="-X .gitignore" || gitignore_arg=""

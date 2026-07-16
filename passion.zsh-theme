@@ -12,7 +12,7 @@ cost_prompt_color_cost=$cost_prompt_color
 cost_prompt_bracket_open=''
 cost_prompt_bracket_close=' |'
 
-. $HOME/zsh_settings/common/cmd_display.sh
+source $ZSHREP/common/cmd_display.sh
 SCRIPT_DIRS=(
     "$HOME/zsh_settings/common/commands"
     "$HOME/zsh_settings/server/commands"
