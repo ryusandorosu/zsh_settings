@@ -6,6 +6,7 @@ alias lah='ls -lah'
 alias gitc='git -C'
 alias sudo='sudo '
 alias diffs='diff -sy --color'
+alias rgrep='rgrep --color=auto --line-number'
 
 # alias gitgrep='git grep --heading --function-context --line-number'
 alias gitgrep='git grep --heading --line-number --before-context=2 --after-context=1'
