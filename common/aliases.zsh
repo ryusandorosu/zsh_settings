@@ -5,7 +5,8 @@ alias bat='batcat'
 alias lah='ls -lah'
 alias sudo='sudo '
 alias diffs='diff -sy --color'
-alias rgrep='rgrep --color=auto --line-number' # also rg=ripgrep bin
+alias rgrep='rgrep --color=auto --line-number'
+alias rg='rg --vimgrep'
 
 alias gitc='git -C'
 alias gitgrep='git grep --heading --line-number --before-context=2 --after-context=1' # --function-context is exclusive with --*context flags
