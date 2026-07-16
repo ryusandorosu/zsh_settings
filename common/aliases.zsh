@@ -5,7 +5,7 @@ alias bat='batcat'
 alias lah='ls -lah'
 alias sudo='sudo '
 alias diffs='diff -sy --color'
-alias rgrep='rgrep --color=auto --line-number'
+alias rgrep='rgrep --color=auto --line-number' # also rg=ripgrep bin
 
 alias gitc='git -C'
 alias gitgrep='git grep --heading --line-number --before-context=2 --after-context=1' # --function-context is exclusive with --*context flags
@@ -16,3 +16,4 @@ alias gitlog="git log --oneline | fzf --multi --style=full --preview 'git show -
 
 alias ffind="fd . '/' | fzf --style=full --preview='fzf-preview.sh {}' --bind 'focus:+transform-header:file --brief {}'"
 alias lfind="locate -b . | fzf --style=full --preview='fzf-preview.sh {}' --bind 'focus:+transform-header:file --brief {}'"
+#alias neovim="lfind | fzf --style=full --preview='batcat --color=always {}' --bind='focus:+transform-header:file --brief {}' --bind 'enter:become(nvim {})'" # bugged because of scan runtime
