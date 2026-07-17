@@ -43,8 +43,14 @@ elif [[ "$OS_ID" == ubuntu ]]; then
   for file in ~/zsh_settings/wsl/*.zsh; do source "$file"; done
 elif [[ "$OS_ID" == Darwin ]]; then
   [[ ! -d /Users/kaycekey/goinfre/.brew ]] && /Users/kaycekey/Desktop/install_brew.sh
-  [[ ! -d /opt/goinfre/kaycekey/.brew/Cellar/coreutils ]] && brew install coreutils
-  [[ ! -d /opt/goinfre/kaycekey/.brew/Cellar/fzf ]] && brew install fzf
+  # to check it
+  brew_packages=(
+    coreutils
+    fzf
+  )
+  for formulae in "${brew_packages[@]}"; do
+    [[ ! -d /opt/goinfre/kaycekey/.brew/Cellar/$formulae ]] && brew install "$formulae"
+  done
   for file in ~/zsh_settings/macos/*.zsh; do source "$file"; done
 fi
 
