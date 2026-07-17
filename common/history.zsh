@@ -1,8 +1,4 @@
 # HISTFILE="$HOME/.zsh_history"
-# FZF_BASE=$ZSH/plugins/fzf
-
-# fzf uses find by default, better to install silversearcher-ag
-FZF_DEFAULT_COMMAND='ag --hidden -g ""'
 
 HISTSIZE=1000000 # = 1M, in memory
 SAVEHIST=1000000 # = 1M, on disk

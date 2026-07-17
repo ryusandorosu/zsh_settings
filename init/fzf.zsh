@@ -14,3 +14,7 @@ define_fzf_location_for_zsh() {
 } || {
   define_fzf_location_for_zsh $goinfre_brew_location
 }
+
+# fzf uses find by default, to change it:
+# FZF_DEFAULT_COMMAND='ag --hidden -g ""' # sudo apt install silversearcher-ag
+FZF_DEFAULT_COMMAND='fd --hidden ""' # brew install fd
