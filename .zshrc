@@ -35,6 +35,7 @@ fi
 
 for file in ~/zsh_settings/common/*.zsh; do source "$file"; done
 for file in ~/zsh_settings/common/fzf/*.zsh; do source "$file"; done
+for file in ~/zsh_settings/common/fzf/*/*.zsh; do source "$file"; done
 
 if [[ "$OS_ID" == debian ]]; then
   for file in ~/zsh_settings/server/*.zsh; do source "$file"; done
