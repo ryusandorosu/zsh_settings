@@ -53,12 +53,16 @@ lfind() {
       --preview='fzf-preview.sh {}'
 }
 
-# bugged because of scan runtime (?) or second fzf instance if use ffind/lfind as i initially designed
 neovim() {
   preview_bat "{}"
   bind_fileinfo "{}"
   bind_exec nvim "{}"
-  locate -b . \
+  cmd=(
+    locate
+    -b
+    .
+  )
+  "${cmd[@]}" \
   | fzf "${fzstyle[@]}" \
         "${previef[@]}" \
         "${briefinfo[@]}" \
