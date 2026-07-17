@@ -33,14 +33,14 @@ if [[ "$OS_ID" != Darwin ]] && [[ ! -f /home/linuxbrew/.linuxbrew/bin/brew ]]; t
   )"
 fi
 
-for file in ~/zsh_settings/common/*.zsh; do source "$file"; done
-for file in ~/zsh_settings/common/fzf/*.zsh; do source "$file"; done
-for file in ~/zsh_settings/common/fzf/*/*.zsh; do source "$file"; done
+for file in $ZSHREP/common/*.zsh; do source "$file"; done
+for file in $ZSHREP/common/fzf/*.zsh; do source "$file"; done
+for file in $ZSHREP/common/fzf/*/*.zsh; do source "$file"; done
 
 if [[ "$OS_ID" == debian ]]; then
-  for file in ~/zsh_settings/server/*.zsh; do source "$file"; done
+  for file in $ZSHREP/server/*.zsh; do source "$file"; done
 elif [[ "$OS_ID" == ubuntu ]]; then
-  for file in ~/zsh_settings/wsl/*.zsh; do source "$file"; done
+  for file in $ZSHREP/wsl/*.zsh; do source "$file"; done
 elif [[ "$OS_ID" == Darwin ]]; then
   [[ ! -d /Users/kaycekey/goinfre/.brew ]] && /Users/kaycekey/Desktop/install_brew.sh
   # to check it
@@ -51,7 +51,7 @@ elif [[ "$OS_ID" == Darwin ]]; then
   for formulae in "${brew_packages[@]}"; do
     [[ ! -d /opt/goinfre/kaycekey/.brew/Cellar/$formulae ]] && brew install "$formulae"
   done
-  for file in ~/zsh_settings/macos/*.zsh; do source "$file"; done
+  for file in $ZSHREP/macos/*.zsh; do source "$file"; done
 fi
 
 [[ $ZSH_THEME == "passion" ]] && source "$ZSH/themes/passion.zsh-theme"
