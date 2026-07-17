@@ -1,4 +1,5 @@
 source $ZSHREP/init/definitions.zsh
+# to check on macos: possibly fd also needed here instead of being in linux packages
 common_brew_packages=(
   fzf
 )

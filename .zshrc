@@ -3,6 +3,7 @@ export ZSHREP="$(dirname $(readlink ~/.zshrc))"
 
 # Main settings
 export ZSH="$HOME/.oh-my-zsh"
+[[ "$OS_ID" != Darwin ]] && source $ZSHREP/init/apt.zsh
 source $ZSHREP/init/omz.zsh
 
 ZSH_THEME="passion"
