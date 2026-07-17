@@ -1,9 +1,7 @@
+# possibly this file is not needed at all
 #- gitc|gitls ** must sort out of fasd folders only repos
-#- compdef _ssh autossh
-
-# _gitvim() {
-#   repo_path=$(git -C "$1" rev-parse --show-toplevel)
-#   _wanted files expl 'git files' \
-#     compadd -- "$(git -C "$repo_path" ls-files --full-name)"
-# }
-# compdef _gitvim gitvim
+compdef _cd lah
+compdef _ssh autossh
+compdef _du duh
+compdef _sed findsed
+compdef _apt 'apt list'

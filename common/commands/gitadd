@@ -8,17 +8,19 @@ source $ZSHREP/common/fuzzy_presets.sh
 if [[ -z "$1" ]]; then
 
   [[ -f ".gitignore" ]] && gitignore_arg="-X .gitignore" || gitignore_arg=""
-  # bat_view_git_escaped "{}"
+  # previef_git_escaped "{}"
   git_diff_view "" "{}"
-  bind_exec_escaped "git add" "{+}"
-  bind_fileinfo_escaped "{}"
+  # bind_exec_escaped "git add" "{+}"
+  # bind_fileinfo_escaped "{}"
+  bind_exec "git add" "{+}"
+  bind_fileinfo "{}"
 
-  zsh_cmd="git ls-files -om $gitignore_arg \
+  git ls-files -om $gitignore_arg \
     | fzf "${fzstyle[@]}" \
-      "${bat_view[@]}" \
-      "${enter_become[@]}" \
-      "${file_brief[@]}" \
-      --multi"
+      "${previef[@]}" \
+      "${briefinfo[@]}" \
+      "${bindexec[@]}" \
+      --multi
 
 else
 
@@ -26,18 +28,20 @@ else
   [[ -f "$gitignore" ]] && gitignore_arg="-X $gitignore" || gitignore_arg=""
 
   repo_path=$(git -C "$1" rev-parse --show-toplevel)
-  # bat_view_git_escaped "$repo_path/{}"
-  git_diff_view "$repo_path" "$repo_path/{}" #also possible just {}
-  bind_exec_escaped "git -C "$1" add" "$repo_path/{+}"
-  bind_fileinfo_escaped "$repo_path/{}"
+  # previef_git "$repo_path/{}"
+  git_diff_view "$repo_path" "$repo_path/{}" #also possible just "{}"
+  # bind_exec_escaped "git -C "$1" add" "$repo_path/{+}"
+  # bind_fileinfo_escaped "$repo_path/{}"
+  bind_exec "git -C "$1" add" "$repo_path/{+}"
+  bind_fileinfo "$repo_path/{}"
 
-  zsh_cmd="git -C "$1" ls-files -om $gitignore_arg \
+  git -C "$1" ls-files -om $gitignore_arg \
     | fzf "${fzstyle[@]}" \
-      "${bat_view[@]}" \
-      "${enter_become[@]}" \
-      "${file_brief[@]}" \
-      --multi"
+      "${previef[@]}" \
+      "${briefinfo[@]}" \
+      "${bindexec[@]}" \
+      --multi
 
 fi
 
-zsh_eval "$zsh_cmd"
+# zsh_eval "$zsh_cmd"

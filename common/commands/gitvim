@@ -1,29 +1,56 @@
 #!/bin/bash
 source $ZSHREP/common/cmd_display.sh
 source $ZSHREP/common/fuzzy_presets.sh
-[[ "$(which nvim)" ]] && editor=nvim || editor=vim
 
 if [[ -z "$1" ]]; then
 
-  bat_view_git_escaped "{}"
-  bind_exec_escaped "$editor" "{}"
-  bind_fileinfo_escaped "{}"
+  # previef_git_escaped "{}"
+  # bind_exec_escaped "$editor" "{}"
+  # bind_fileinfo_escaped "{}"
+  previef_git "{}"
+  bind_exec "$(get_editor)" "{}"
+  bind_fileinfo "{}"
 
-  zsh_cmd="git ls-files --full-name \
-    | fzf "${fzstyle[@]}" "${bat_view[@]}" "${enter_become[@]}" "${file_brief[@]}" "
+  # zsh_cmd="git ls-files --full-name \
+  #   | fzf "${fzstyle[@]}" "${previef[@]}" "${bindexec[@]}" "${file_brief[@]}" "
+  cmd=(
+    git
+    ls-files
+    --full-name
+  )
+  "${cmd[@]}" | \
+    fzf "${fzstyle[@]}" \
+        "${previef[@]}" \
+        "${briefinfo[@]}" \
+        "${bindexec[@]}"
 
 else
 
-  repo_root="-C $1"
-  repo_path=$(git -C "$1" rev-parse --show-toplevel)
+  if [[ -d "$1" ]]; then repo_root="-C $1";
+  elif [[ -f "$1" ]]; then repo_root="-C $(dirname $1)"; fi
+  repo_path=$(git $repo_root rev-parse --show-toplevel)
 
-  bat_view_git_escaped "$repo_path/{}"
-  bind_exec_escaped "$editor" "$repo_path/{}"
-  bind_fileinfo_escaped "$repo_path/{}"
+  # previef_git_escaped "$repo_path/{}"
+  # bind_exec_escaped "$editor" "$repo_path/{}"
+  # bind_fileinfo_escaped "$repo_path/{}"
+  previef_git "$repo_path/{}"
+  bind_exec "$(get_editor)" "$repo_path/{}"
+  bind_fileinfo "$repo_path/{}"
 
-  zsh_cmd="git $repo_root ls-files --full-name \
-    | fzf "${fzstyle[@]}" "${bat_view[@]}" "${enter_become[@]}" "${file_brief[@]}" "
+  # zsh_cmd="git $repo_root ls-files --full-name \
+  #   | fzf "${fzstyle[@]}" "${previef[@]}" "${bindexec[@]}" "${file_brief[@]}" "
+  cmd=(
+    git
+    $repo_root
+    ls-files
+    --full-name
+  )
+  "${cmd[@]}" | \
+    fzf "${fzstyle[@]}" \
+        "${previef[@]}" \
+        "${briefinfo[@]}" \
+        "${bindexec[@]}"
 
 fi
 
-zsh_eval "$zsh_cmd"
+# zsh_eval "$zsh_cmd"
