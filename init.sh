@@ -1,0 +1,53 @@
+#!/bin/bash
+
+link_func() {
+  local source="$1"
+  local link="$2"
+  if [[ ! -L "$link" ]] || [[ "$(readlink $link)" != "$source" ]]; then
+    ln -ifsv "$source" "$link"
+  fi
+}
+
+repo="git@github.com:ryusandorosu/zsh_settings.git"
+destination="$HOME/$(basename $repo | sed 's/.git//')"
+read -e -i "$destination" -p "Choose a destination to clone or remain the default: " destination
+
+[[ ! -d "$destination/.git" ]] && {
+  git clone "$repo" "$destination"
+} || {
+  echo "Cancelled. A repo is already cloned here: $destination"
+}
+
+create_symlink() {
+  local zshrc="$1"
+
+  [[ -f "$zshrc" && ! -L "$zshrc" ]] && {
+    echo "Backing up an original $zshrc:"
+    cp -v "$zshrc" "$zshrc.backup"
+  }
+
+  if [[ ! -L "$zshrc" ]]; then
+
+    echo "Linking $zshrc to the repo:"
+    link_func "$destination/.zshrc" "$zshrc"
+
+  elif [[ -L "$zshrc" ]] && [[ "$(readlink $zshrc)" == "$destination/.zshrc" ]]; then
+
+    echo -n "Cancelled. $zshrc is already linked to the repo: "
+    readlink "$zshrc"
+
+  else
+
+    echo -n "Error occured. $zshrc is a symlink but linked to: "
+    readlink "$zshrc"
+
+  fi
+}
+
+create_symlink ~/.zshrc
+
+zsh ~/.zshrc
+echo "Installation done."
+
+# sudo --login
+# create_symlink /root/.zshrc
