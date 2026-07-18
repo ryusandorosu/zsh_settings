@@ -15,8 +15,12 @@ _fzf_comprun() {
     cp|mv)    preview_battree "{}"; bind_fileinfo "{}"
               fzf "${fzstyle[@]}" "${previef[@]}" "${briefinfo[@]}"     "$@" ;;
 
+    alias|unalias)  fzf "${fzstyle[@]}" --preview='printf "%s\n" {2}'   "$@" ;;
+    # alias|unalias)      fzf "${fzstyle[@]}" --preview='alias {}'        "$@" ;;
+    # alias|unalias)  fzf "${fzstyle[@]}" --preview="zsh -ic 'alias {}'"  "$@" ;;
+
     *)        bind_fileinfo "{}"
-                  fzf "${fzstyle[@]}" --preview='fzf-preview.sh {}' \
+              fzf "${fzstyle[@]}" --preview='fzf-preview.sh {}' \
                   "${briefinfo[@]}"                                     "$@" ;;
 
   esac
