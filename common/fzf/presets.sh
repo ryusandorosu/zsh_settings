@@ -42,7 +42,7 @@ preview_bat() {
   fi
   previef=(
     --preview
-    "batcat $style --color=always $1"
+    "bat $style --color=always $1"
   )
 }
 

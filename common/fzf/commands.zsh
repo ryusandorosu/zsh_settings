@@ -27,9 +27,10 @@ gitgrepf() {
 gitgrepb() {
   git grep --line-number . | \
   fzf "${fzstyle[@]}" \
-  --preview 'batcat --color=always --style=numbers --highlight-line=$(echo {1} | cut -d: -f2) $(echo {1} | cut -d: -f1)'
+  --preview 'bat --color=always --style=numbers --highlight-line=$(echo {1} | cut -d: -f2) $(echo {1} | cut -d: -f1)'
 }
 
+# similar to glgp alias
 gitlog() {
   git log --oneline | \
   fzf "${fzstyle[@]}" --multi \
