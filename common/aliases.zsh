@@ -4,7 +4,7 @@ alias sed-crlf="sed -i 's/\r$//'"
 alias sudo='sudo '
 alias diffs='diff -sy --color'
 alias rgrep="rgrep --color=auto --line-number --exclude-dir='.*'"
-alias rg='rg --vimgrep'
+alias rg='rg --hidden --vimgrep'
 
 alias gitc='git -C'
 alias gitgrep='git grep --heading --line-number --before-context=2 --after-context=1' # --function-context: is exclusive with --*context flags
