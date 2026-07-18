@@ -1,0 +1,1 @@
+lah() { command ls -lah "$@"; }
