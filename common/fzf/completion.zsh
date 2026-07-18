@@ -13,5 +13,21 @@ _fzf_base_dir() {
     base=${prefix:h}
     [[ -z "$base" ]] && base="."
   fi
-  print -r -- ${~base}   # раскрыть ~
+  # раскрыть ~
+  print -r -- ${~base}
 }
+
+_fzf_complete_pwd() {
+  local type="$1"
+  local base=$(_fzf_base_dir "$prefix")
+  if [[ $base == . ]]; then
+    _fzf_complete -- "$@" < <(fd --strip-cwd-prefix=always --type $type .)
+  else
+    _fzf_complete -- "$@" < <(fd --type $type . "$base")
+  fi
+}
+
+_fzf_complete_lah() { _fzf_complete_pwd d; }
+_fzf_complete_cat() { _fzf_complete_pwd f; }
+_fzf_complete_bat() { _fzf_complete_cat "$@"; }
+_fzf_complete_batcat() { _fzf_complete_cat "$@"; }
