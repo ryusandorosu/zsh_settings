@@ -11,4 +11,7 @@ _fzf_complete_whence() {
     )
 }
 
-_fzf_complete_whence_post() { cut -f1; }
+_fzf_complete_whence_post() {
+  echo "-f"
+  cut -f1
+}
