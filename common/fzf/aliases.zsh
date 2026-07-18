@@ -1,1 +1,2 @@
-lah() { command ls -lah "$@"; }
+lah() { command /usr/bin/ls -laAhH "$@"; }
+alias lah='lah --color=tty'
