@@ -15,8 +15,6 @@ _fzf_complete_whence_post() {
   cut -f1
 }
 
-# /home/ryusandorosu/.local/bin seems like belongs not only to python
-# /snap/bin
 _fzf_complete_which() {
   _fzf_complete --prompt="which> " \
     --preview='
@@ -36,9 +34,7 @@ _fzf_complete_which() {
       for dir in $path; do # same as $PATH
         [[ "$dir" == /mnt/c/* ]] && continue
         if [[ -d "$dir" ]]; then
-          # [[ "$(fd "." --type x "$dir")" == "" ]] && continue
-          # print -rl -- ${dir}/*(N:t) # zsh glob qualifiers are being used here: man zshexpn
-          fd "." --type x --type l "$dir" | sed -r 's|.*/||' # alternative does the same, but excludes empty string from the list as well
+          fd "." --type x --type l "$dir" | sed -r 's|.*/||'
         fi
       done | sort -u
     )
