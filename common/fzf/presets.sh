@@ -23,7 +23,7 @@ bind_fileinfo() {
 bind_exec() {
   bindexec=(
     --bind
-    "enter:become('$1' '$2')"
+    "enter:become($1 $2)"
   )
 }
 
