@@ -20,6 +20,8 @@ _fzf_comprun() {
     whence)   fzf "${fzstyle[@]}" \
                --preview='print {} | sed -r "s/^\w+\s+//"'              "$@" ;;
 
+    which)    fzf "${fzstyle[@]}" --preview='which {}'                  "$@" ;;
+
     *)        bind_fileinfo "{}"
               fzf "${fzstyle[@]}" --preview='fzf-preview.sh {}' \
                   "${briefinfo[@]}"                                     "$@" ;;
