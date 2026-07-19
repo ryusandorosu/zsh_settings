@@ -33,14 +33,12 @@ _fzf_complete_which() {
     ' \
     -- "$@" < <(
       local dir
-      print -rl -- /home/linuxbrew/.linuxbrew/bin/*(N:t)
-      # $PATH spelling is not recognized
-      local path+=""
-      for dir in $path; do
+      for dir in $path; do # same as $PATH
         [[ "$dir" == /mnt/c/* ]] && continue
         if [[ -d "$dir" ]]; then
-          [[ "$(fd "." --type x "$dir")" == "" ]] && continue
-          print -rl -- ${dir}/*(N:t)
+          # [[ "$(fd "." --type x "$dir")" == "" ]] && continue
+          # print -rl -- ${dir}/*(N:t) # zsh glob qualifiers are being used here: man zshexpn
+          fd "." --type x --type l "$dir" | sed -r 's|.*/||' # alternative does the same, but excludes empty string from the list as well
         fi
       done | sort -u
     )
