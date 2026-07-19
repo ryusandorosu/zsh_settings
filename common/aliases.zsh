@@ -7,4 +7,4 @@ alias rgrep="rgrep --color=auto --line-number --exclude-dir='.*'"
 alias rg='rg --hidden --vimgrep'
 
 alias gitc='git -C'
-alias gitgrep='git grep --heading --line-number --before-context=2 --after-context=1' # --function-context: is exclusive with --*context flags
+alias gitgrep='git grep --heading --line-number --before-context=2 --after-context=1'

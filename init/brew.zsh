@@ -40,7 +40,7 @@ elif [[ "$OS_ID" == Darwin ]]; then
 
 fi
 
-# https://github.com/sharkdp/fd - fd-find is too old for ubuntu, not so fresh for debian to install from apt. the package is already present in neovim role, but for direct usage brew version is preferred
+# https://github.com/sharkdp/fd
 # https://github.com/clvv/fasd
 # https://github.com/junegunn/fzf
 # https://github.com/BurntSushi/ripgrep

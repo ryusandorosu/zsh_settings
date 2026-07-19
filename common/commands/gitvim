@@ -14,7 +14,7 @@ if [[ -z "$1" ]]; then
   )
   "${cmd[@]}" | \
     fzf "${fzstyle[@]}" \
-        "${previef[@]}" \
+        "${previewcmd[@]}" \
         "${briefinfo[@]}" \
         "${bindexec[@]}"
 
@@ -36,7 +36,7 @@ else
   )
   "${cmd[@]}" | \
     fzf "${fzstyle[@]}" \
-        "${previef[@]}" \
+        "${previewcmd[@]}" \
         "${briefinfo[@]}" \
         "${bindexec[@]}"
 

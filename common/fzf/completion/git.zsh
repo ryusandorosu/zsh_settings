@@ -8,7 +8,7 @@ _fzf_complete_gitls() {
   preview_tree "{}"
   _fzf_complete \
     --prompt="git> " \
-    "${previef[@]}" \
+    "${previewcmd[@]}" \
     -- "$@" < <(_fzf_git_repos)
 }
 

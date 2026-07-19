@@ -14,7 +14,7 @@ if [[ -z "$1" ]]; then
 
   git ls-files -om $gitignore_arg \
     | fzf "${fzstyle[@]}" \
-      "${previef[@]}" \
+      "${previewcmd[@]}" \
       "${briefinfo[@]}" \
       "${bindexec[@]}" \
       --multi
@@ -32,7 +32,7 @@ else
 
   git -C "$1" ls-files -om $gitignore_arg \
     | fzf "${fzstyle[@]}" \
-      "${previef[@]}" \
+      "${previewcmd[@]}" \
       "${briefinfo[@]}" \
       "${bindexec[@]}" \
       --multi

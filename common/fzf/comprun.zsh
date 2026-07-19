@@ -5,15 +5,15 @@ _fzf_comprun() {
   shift
   case "$command" in
     cd|lah|l|ls|lsa)          preview_tree "{}"; bind_fileinfo "{}"
-              fzf "${fzstyle[@]}" "${previef[@]}" "${briefinfo[@]}"     "$@" ;;
+              fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
 
-    vim|nvim)                  preview_bat "{}"; bind_fileinfo "{}"
-              fzf "${fzstyle[@]}" "${previef[@]}" "${briefinfo[@]}"     "$@" ;;
+    vim|nvim)                 preview_bat "{}";  bind_fileinfo "{}"
+              fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
 
     ssh|autossh)                                fzf "${fzstyle[@]}"     "$@" ;;
 
     cp|mv)                 preview_battree "{}"; bind_fileinfo "{}"
-              fzf "${fzstyle[@]}" "${previef[@]}" "${briefinfo[@]}"     "$@" ;;
+              fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
 
     alias|unalias)  fzf "${fzstyle[@]}" --preview='printf "%s\n" {2}'   "$@" ;;
 

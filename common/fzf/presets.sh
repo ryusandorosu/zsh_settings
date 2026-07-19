@@ -13,6 +13,7 @@ fzstyle=(
 
 # binds
 bind_fileinfo() {
+  # --brief may be replaced with: --mime or something like this, possibly in preview when bat cannot render file content
   briefinfo=(
     --bind
     "focus:+transform-header:file --brief '$1'"
@@ -28,7 +29,7 @@ bind_exec() {
 
 # previews
 preview_tree() {
-  previef=(
+  previewcmd=(
     --preview
     "tree -C '$1' | head -200"
   )
@@ -42,14 +43,14 @@ preview_bat() {
   else
     style=""
   fi
-  previef=(
+  previewcmd=(
     --preview
     "bat $style --color=always '$1'"
   )
 }
 
 preview_battree() {
-  previef=(
+  previewcmd=(
     --preview
     "test -d '$1' && tree -C '$1' | head -200 || bat --color=always '$1'"
   )
@@ -58,7 +59,7 @@ preview_battree() {
 git_diff_view() {
   local repo_root
   [[ -n "$1" ]] && repo_root="-C '$1'" || repo_root=""
-  previef=(
+  previewcmd=(
     --preview
     "git $repo_root diff --color=always --word-diff=color '$2'"
   )
