@@ -20,8 +20,8 @@ _fzf_complete_which() {
     --preview='
     which {}
     [[ -L $(which {}) ]] && {
-      echo -n "Linked to: "
-      realpath $(which {})
+      local whichlinked=$(realpath $(which {}))
+      print "Linked to: $whichlinked"
     }
     case "$(dirname $(which {}))" in
       /bin|/sbin|/usr/bin|/usr/sbin) apt-cache show $(dpkg -S {} | cut -d: -f1) ;;
@@ -35,6 +35,13 @@ _fzf_complete_which() {
         local pkgdir=${record:h}
         local pkgname=${${${pkgdir:t}%.dist-info}%-[0-9]*}
                                                               pip show $pkgname ;;
+       /usr/local/bin)
+        [[ -L $(which {}) ]] && {
+          local locallib=$(cut -d/ -f5 <<< $whichlinked)
+          case $locallib in
+            node_modules)              npm info $(cut -d/ -f6 <<< $whichlinked) ;;
+          esac
+        }                                                                       ;;
     esac
     ' \
     -- "$@" < <(
