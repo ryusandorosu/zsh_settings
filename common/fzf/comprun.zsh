@@ -4,7 +4,7 @@ _fzf_comprun() {
   local command=$1
   shift
   case "$command" in
-    cd|lah|l|ls|lsa)          preview_tree "{}"; bind_fileinfo "{}"
+    cd|l|ls|lsa|lah)          preview_tree "{}"; bind_fileinfo "{}"
               fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
 
     vim|nvim)                 preview_bat "{}";  bind_fileinfo "{}"
@@ -15,7 +15,7 @@ _fzf_comprun() {
     cp|mv)                 preview_battree "{}"; bind_fileinfo "{}"
               fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
 
-    alias|unalias)  fzf "${fzstyle[@]}" --preview='printf "%s\n" {2}'   "$@" ;;
+    *alias)   fzf "${fzstyle[@]}" --preview='printf "%s\n" {2}'         "$@" ;;
 
     whence)   fzf "${fzstyle[@]}" \
               --preview='print {} | sed -r "s/^\w+\s+//"'               "$@" ;;
