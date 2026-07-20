@@ -1,5 +1,5 @@
 aptinstall() {
-  # [[ ! -f $(which $1) ]] && sudo apt install $1 -y
+  [[ -f $(which $1) ]] && return
   apt-cache show $1 > /dev/null || sudo apt-get install -y $1
 }
 
