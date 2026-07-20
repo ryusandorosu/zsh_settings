@@ -25,8 +25,9 @@ _fzf_complete_which() {
     }
     case "$(dirname $(which {}))" in
       /bin|/sbin|/usr/bin|/usr/sbin) apt-cache show $(dpkg -S {} | cut -d: -f1) ;;
-      /home/linuxbrew/.linuxbrew/bin) brew info {} ;;
-      $HOME/.local/bin) pip show {} ;;
+      *brew/bin)                                                   brew info {} ;;
+      /snap/bin|/usr/bin/snap)                                     snap info {} ;;
+      $HOME/.local/bin)                                             pip show {} ;;
     esac
     ' \
     -- "$@" < <(
