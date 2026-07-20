@@ -27,7 +27,14 @@ _fzf_complete_which() {
       /bin|/sbin|/usr/bin|/usr/sbin) apt-cache show $(dpkg -S {} | cut -d: -f1) ;;
       *brew/bin)                                                   brew info {} ;;
       /snap/bin|/usr/bin/snap)                                     snap info {} ;;
-      $HOME/.local/bin)                                             pip show {} ;;
+      $HOME/.local/bin)
+        local bin={}
+        local record=$(
+          rg -loP "(/?\.\.)+/bin/$bin(,??)" $HOME/.local/lib/python3.*/site-packages/*.dist-info/RECORD
+        )
+        local pkgdir=${record:h}
+        local pkgname=${${${pkgdir:t}%.dist-info}%-[0-9]*}
+                                                              pip show $pkgname ;;
     esac
     ' \
     -- "$@" < <(
