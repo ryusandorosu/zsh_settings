@@ -22,6 +22,6 @@ gitlog() {
     )
   fi
 
-  "${cmd[@]}" | fzf "${fzstyle[@]}" "${previewcmd[@]}" --multi
+  "${cmd[@]}" | fzf "${fzfdefaults[@]}" "${previewcmd[@]}" --multi
 }
 alias gitshow='gitlog'

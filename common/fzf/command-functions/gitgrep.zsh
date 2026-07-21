@@ -12,7 +12,7 @@ gitgrepf() {
       "."
     )
   else
-    if [[ -d "$1" ]]; then repo_flag="-C $1";
+    if   [[ -d "$1" ]]; then repo_flag="-C $1";
     elif [[ -f "$1" ]]; then repo_flag="-C $(dirname $1)"; fi
     repo_path="$(git -C $1 rev-parse --show-toplevel)/"
     cmd=(
@@ -24,7 +24,7 @@ gitgrepf() {
   fi
 
   "${cmd[@]}" | \
-  fzf "${fzstyle[@]}" \
+  fzf "${fzfdefaults[@]}" \
   --preview 'git '$repo_flag' grep --heading --function-context --line-number --color {3}'
    # --function-context: is exclusive with --*context flags
 }
@@ -49,6 +49,6 @@ gitgrepb() {
   fi
 
   "${cmd[@]}" | \
-  fzf "${fzstyle[@]}" \
+  fzf "${fzfdefaults[@]}" \
   --preview 'bat --color=always --style=changes,numbers --highlight-line=$(cut -d: -f2 <<< {1}) '$repo_path'$(cut -d: -f1 <<< {1})'
 }

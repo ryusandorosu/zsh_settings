@@ -10,7 +10,7 @@ if [[ -z "$1" ]]; then
 
 else
 
-  if [[ -d "$1" ]]; then repo_flag="-C $1";
+  if   [[ -d "$1" ]]; then repo_flag="-C $1";
   elif [[ -f "$1" ]]; then repo_flag="-C $(dirname $1)"; fi
   repo_path="$(git -C $1 rev-parse --show-toplevel)"
 
@@ -28,7 +28,7 @@ cmd=(
 )
 
 "${cmd[@]}" | \
-fzf "${fzstyle[@]}" \
+fzf "${fzfdefaults[@]}" \
     "${previewcmd[@]}" \
     "${briefinfo[@]}" \
     "${bindexec[@]}"

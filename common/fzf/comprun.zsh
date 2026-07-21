@@ -5,25 +5,26 @@ _fzf_comprun() {
   shift
   case "$command" in
     cd|l|ls|lsa|lah)          preview_tree "{}"; bind_fileinfo "{}"
-              fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
+       fzf "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"     "$@" ;;
 
     vim|nvim)                 preview_bat "{}";  bind_fileinfo "{}"
-              fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
+       fzf "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"     "$@" ;;
 
-    ssh|autossh)                                fzf "${fzstyle[@]}"     "$@" ;;
+    ssh|autossh)                            fzf "${fzfdefaults[@]}"     "$@" ;;
 
     cp|mv)                 preview_battree "{}"; bind_fileinfo "{}"
-              fzf "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"  "$@" ;;
+       fzf "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"     "$@" ;;
 
-    *alias)   fzf "${fzstyle[@]}" --preview='printf "%s\n" {2}'         "$@" ;;
+    *alias)   fzf "${fzfdefaults[@]}" --preview='printf "%s\n" {2}'     "$@" ;;
 
-    whence)   fzf "${fzstyle[@]}" \
+    whence)   fzf "${fzfdefaults[@]}" \
               --preview='print {} | sed -r "s/^\w+\s+//"'               "$@" ;;
-    which)    fzf "${fzstyle[@]}"                                       "$@" ;;
+
+    which)    fzf "${fzfdefaults[@]}"                                   "$@" ;;
 
     *)        bind_fileinfo "{}"
-              fzf "${fzstyle[@]}" --preview='fzf-preview.sh {}' \
-                  "${briefinfo[@]}"                                     "$@" ;;
+              fzf "${fzfdefaults[@]}" "${briefinfo[@]}" \
+                  --preview='fzf-preview.sh {}'                         "$@" ;;
 
   esac
 }

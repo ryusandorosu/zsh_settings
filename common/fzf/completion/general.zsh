@@ -1,7 +1,3 @@
-# compdef _du duh
-# compdef _sed findsed
-# compdef _apt 'apt list'
-
 _fzf_base_dir() {
   local prefix=$1
   local base
@@ -28,13 +24,13 @@ _fzf_complete_pwd() {
   fi
 }
 
-_fzf_complete_ls() { _fzf_complete_pwd d "$@"; }
+_fzf_complete_ls()  { _fzf_complete_pwd d "$@"; }
 _fzf_complete_l()   { _fzf_complete_ls "$@"; }
 _fzf_complete_lsa() { _fzf_complete_ls "$@"; }
-_fzf_complete_lah()  { _fzf_complete_ls "$@"; }
+_fzf_complete_lah() { _fzf_complete_ls "$@"; }
 
 _fzf_complete_cat() { _fzf_complete_pwd f "$@"; }
 _fzf_complete_bat() { _fzf_complete_cat "$@"; }
-_fzf_complete_vim() { _fzf_complete_pwd f "$@"; }
+_fzf_complete_vim()  { _fzf_complete_pwd f "$@"; }
 _fzf_complete_nvim()   { _fzf_complete_vim "$@"; }
 _fzf_complete_neovim() { _fzf_complete_vim "$@"; }

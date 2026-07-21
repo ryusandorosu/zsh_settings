@@ -40,7 +40,7 @@ cmd=(
 )
 
 "${cmd[@]}" | \
-fzf "${fzstyle[@]}" \
+fzf "${fzfdefaults[@]}" \
     "${previewcmd[@]}" \
     "${briefinfo[@]}" \
     "${bindexec[@]}" \

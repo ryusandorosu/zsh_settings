@@ -8,7 +8,7 @@ fvim() {
   local file=$(
     preview_bat "{}"; bind_fileinfo "{}"
     fasd -f | awk '{print $2}' |
-    fzf --tac "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
+    fzf --tac "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
   ) || return
   [[ -z "$file" ]] && return
   command "$(get_editor)" "$file"
@@ -18,7 +18,7 @@ cdf() {
   local dir=$(
     preview_tree "{}"; bind_fileinfo "{}"
     fasd -d | awk '{print $2}' |
-    fzf --tac "${fzstyle[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
+    fzf --tac "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
   ) || return
   cd "$dir"
 }
@@ -26,7 +26,7 @@ cdf() {
 ffind() {
   preview_battree "{}"; bind_fileinfo "{}"
   fd . '/' | \
-  fzf "${fzstyle[@]}" \
+  fzf "${fzfdefaults[@]}" \
       "${briefinfo[@]}" \
       "${previewcmd[@]}"
 }
@@ -34,7 +34,7 @@ ffind() {
 lfind() {
   preview_battree "{}"; bind_fileinfo "{}"
   locate -b . | \
-  fzf "${fzstyle[@]}" \
+  fzf "${fzfdefaults[@]}" \
       "${briefinfo[@]}" \
       "${previewcmd[@]}"
 }
@@ -47,7 +47,7 @@ neovim() {
     .
   )
   "${cmd[@]}" \
-  | fzf "${fzstyle[@]}" \
+  | fzf "${fzfdefaults[@]}" \
         "${previewcmd[@]}" \
         "${briefinfo[@]}" \
         "${bindexec[@]}"

@@ -1,6 +1,6 @@
 export PATH=$PATH:$ZSHREP/common/commands
 export PATH=$PATH:$ZSHREP/common/fzf/commands
-#ansible template renderer
+# custom ansible template renderer
 export PATH=$PATH:$HOME/homeserver-ansible/tools
 
 if [[ "$OS_ID" != Darwin ]]; then

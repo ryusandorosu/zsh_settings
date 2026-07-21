@@ -7,9 +7,13 @@ get_editor() {
 }
 
 # options
-fzstyle=(
+fzfdefaults=(
   --style=full
   --preview-window='right,58%,wrap-word'
+  --bind='ctrl-up:preview-up'
+  --bind='ctrl-down:preview-down'
+  --bind='ctrl-page-up:preview-page-up'
+  --bind='ctrl-page-down:preview-page-down'
 )
 
 # binds
