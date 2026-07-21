@@ -11,13 +11,13 @@ gitcmd=(git)
 gitignore="${repo_path}.gitignore"
 [[ -f "$gitignore" ]] && gitignore_arg=(-X "$gitignore") || gitignore_arg=()
 
-# preview_bat "$repo_path{2}" git
-preview_git diff "$repo_path" "$repo_path{2}" "{1}"
-bind_gitinfo "$repo_path" "$repo_path{2}" "{1}"
+# preview_bat "${repo_path}{2}" git
+preview_git diff "$repo_path" "${repo_path}{2}" "{1}"
+bind_gitinfo "$repo_path" "${repo_path}{2}" "{1}"
 
 execcmd=("${gitcmd[@]}")
 execcmd+=(add)
-bind_exec "${(j: :)execcmd[@]}" "$repo_path{+2}"
+bind_exec "${(j: :)execcmd[@]}" "${repo_path}{+2}"
 
 ### --find-renames has no effect -_-
 gitcmd+=(
