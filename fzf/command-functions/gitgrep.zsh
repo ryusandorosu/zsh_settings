@@ -8,7 +8,7 @@ gitgrepf() {
   gitcmd=(git)
   if   [[ -d "$1" ]]; then gitcmd+=(-C "$1");
   elif [[ -f "$1" ]]; then gitcmd+=(-C "$(dirname $1)"); fi
-  repo_path="$("${gitcmd[@]}" rev-parse --show-toplevel)/"
+  # repo_path="$("${gitcmd[@]}" rev-parse --show-toplevel)/" # not used o_O
 
   gitcmd+=(grep)
   cmd=("${gitcmd[@]}")
@@ -24,7 +24,7 @@ gitgrepb() {
   gitcmd=(git)
   if   [[ -d "$1" ]]; then gitcmd+=(-C "$1");
   elif [[ -f "$1" ]]; then gitcmd+=(-C "$(dirname $1)"); fi
-  repo_path="$("${gitcmd[@]}" rev-parse --show-toplevel)/"
+  if   [[ -n "$1" ]]; then repo_path="$("${gitcmd[@]}" rev-parse --show-toplevel)/"; fi
 
   gitcmd+=(
     grep

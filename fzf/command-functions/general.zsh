@@ -11,6 +11,7 @@ fvim() {
     fzf --tac "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
   ) || return
   [[ -z "$file" ]] && return
+  # сделать подстановку в командную строку вместо перехода напрямую из функции
   command "$(_get_editor)" "$file"
 }
 
@@ -20,6 +21,7 @@ cdf() {
     fasd -d | awk '{print $2}' |
     fzf --tac "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
   ) || return
+  # сделать подстановку в командную строку вместо перехода напрямую из функции
   cd "$dir"
 }
 
