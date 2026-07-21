@@ -8,9 +8,10 @@ preview_git() {
 
   case $gitcommand in
   diff)
-    local revision=$4
-    [[ -z "$revision" ]] && revision=$(git $repo_flag rev-parse --abbrev-ref --symbolic-full-name @{u}) #|| revision=HEAD
     local path=$3
+    ### got error. preview_git:11: command not found: git
+    # local revision=$(git $repo_flag rev-parse --abbrev-ref --symbolic-full-name @{u}) #|| revision=HEAD
+    ### commented because it is not used anyway, but curious to sort out
     [[ -n "$revision" ]] && select="'$revision' -- '$path'" || select="$path"
     ;;
   show)
@@ -19,9 +20,16 @@ preview_git() {
     ;;
   esac
 
+  # to add a case when a file is staged (M) and differ it from modified but unstaged (M). when: one of already staged files has been changed (MM), staged ones are not previewed and no bind_gitinfo output as well
   previewcmd=(
     --preview
-    "git $repo_flag $gitcommand --color=always --word-diff=color $select"
+    "
+    __status='$4'
+    case \"\$__status\" in
+      '??') bat --color=always --style=changes,numbers '$path' | head -500 ;;
+      *)    git $repo_flag $gitcommand --color=always --word-diff=color $select ;;
+    esac
+    "
     --preview-window
     'right,67%,wrap-word'
   )
