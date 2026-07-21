@@ -2,45 +2,46 @@
 source $ZSHREP/fzf/presets/main.sh
 [[ -n "$1" && "$1" == status ]] && shift
 
+gitcmd=(git)
+
 if [[ -z "$1" ]]; then
 
   gitignore=".gitignore"
-  [[ -f "$gitignore" ]] && gitignore_arg="-X $gitignore" || gitignore_arg=""
-
-  repo_flag=()
 
   # preview_bat "{2}" git
   preview_git diff "" "{2}" "{1}"
-  bind_exec "git add" "{+2}"
   bind_gitinfo "" "{2}" "{1}"
+  bind_exec "git add" "{+2}"
 
 else
 
-  gitignore="$repo_path/.gitignore"
-  [[ -f "$gitignore" ]] && gitignore_arg="-X $gitignore" || gitignore_arg=""
+  [[ -d "$1" ]] && gitcmd+=(-C "$1")
+  [[ -f "$1" ]] && gitcmd+=(-C "$(dirname $1)")
+  execcmd=("${gitcmd[@]}")
 
-  if   [[ -d "$1" ]]; then repo_flag=(-C $1);
-  elif [[ -f "$1" ]]; then repo_flag=(-C $(dirname $1)); fi
-  repo_path="$(git -C $1 rev-parse --show-toplevel)"
+  repo_path="$("${gitcmd[@]}" rev-parse --show-toplevel)"
+  gitignore="$repo_path/.gitignore"
 
   # preview_bat "$repo_path/{2}" git
   preview_git diff "$repo_path" "$repo_path/{2}" "{1}"
-  bind_exec "git -C "$1" add" "$repo_path/{+2}"
   bind_gitinfo "$repo_path" "$repo_path/{2}" "{1}"
+
+  execcmd+=(add)
+  bind_exec "${(j: :)execcmd[@]}" "$repo_path/{+2}" # used 'zsh join' here to not change the bind_exec function accept arrays as arguments correctly
 
 fi
 
+[[ -f "$gitignore" ]] && gitignore_arg=(-X "$gitignore") || gitignore_arg=()
+
 ### --find-renames has no effect -_-
-cmd=(
-  git
-  "${repo_flag[@]}"
+gitcmd+=(
   status
   --porcelain
   --find-renames
-  $gitignore_arg
+  "${gitignore_arg[@]}"
 )
 
-"${cmd[@]}" | \
+"${gitcmd[@]}" | \
 fzf "${fzfdefaults[@]}" \
     "${previewcmd[@]}" \
     "${briefinfo[@]}" \
