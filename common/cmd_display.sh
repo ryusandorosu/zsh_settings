@@ -2,10 +2,10 @@
 ZSH_SCRIPT_CMD_FILE="$HOME/.zsh_cmd_display"
 function zsh_eval() {
   if [[ $# > 1 ]]; then
-    echo "$@" > "$HOME/.zsh_cmd_display"
+    echo "$@" > "$ZSH_SCRIPT_CMD_FILE"
     eval "$@"
   elif [[ -n "$1" ]]; then
-    echo "$1" > "$HOME/.zsh_cmd_display"
+    echo "$1" > "$ZSH_SCRIPT_CMD_FILE"
     eval "$1"
   else
     echo "$(basename $0): no command to execute"

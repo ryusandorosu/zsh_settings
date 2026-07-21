@@ -15,6 +15,7 @@ source $ZSHREP/common/cmd_display.sh
 SCRIPT_DIRS=(
     "$ZSHREP/common/commands"
     "$ZSHREP/server/commands"
+    "$ZSHREP/fzf/command-scripts"
 )
 
 function _resolve_script_display_cmd() {
