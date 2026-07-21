@@ -24,6 +24,7 @@ _fzf_complete_pwd() {
   fi
 }
 
+# --walker=[file][,dir][,follow][,hidden]
 _fzf_complete_ls()  { _fzf_complete_pwd d "$@"; }
 _fzf_complete_l()   { _fzf_complete_ls "$@"; }
 _fzf_complete_lsa() { _fzf_complete_ls "$@"; }
