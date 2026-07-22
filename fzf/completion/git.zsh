@@ -1,7 +1,7 @@
 source $ZSHREP/fzf/presets/main.sh
 
 _fzf_git_repos() {
-  local base=$(_fzf_base_dir "$prefix")
+  local base=$(_fzf_prefix_dir "$prefix")
   local expanded=${~base}
   if [[ $base == . ]]; then
     base="~"

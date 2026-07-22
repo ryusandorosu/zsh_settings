@@ -1,4 +1,4 @@
-_fzf_base_dir() {
+_fzf_prefix_dir() {
   local prefix=$1
   local base
   if [[ -z $prefix ]]; then
@@ -12,10 +12,10 @@ _fzf_base_dir() {
   print -r -- "$base"
 }
 
-_fzf_complete_pwd() {
+_fzf_fd_completion() {
   local type="$1"
   shift
-  local base=$(_fzf_base_dir "$prefix")
+  local base=$(_fzf_prefix_dir "$prefix")
   local expanded=${~base}
   if [[ $base == . ]]; then
     _fzf_complete -- "$@" < <(fd --strip-cwd-prefix=always --type $type .)
@@ -24,10 +24,10 @@ _fzf_complete_pwd() {
   fi
 }
 
-_fzf_fasd() {
+_fzf_fasd_completion() {
   local type="$1"
   shift
-  local base=$(_fzf_base_dir "$prefix")
+  local base=$(_fzf_prefix_dir "$prefix")
   local expanded=${~base}
   if [[ $base == . ]]; then
     _fzf_complete -- "$@" < <(fasd $type | awk '{print $2}' | tac)
@@ -36,18 +36,18 @@ _fzf_fasd() {
   fi
 }
 
-_fzf_complete_fvim()  { _fzf_fasd -f "$@"; }
-_fzf_complete_cdf()   { _fzf_fasd -d "$@"; }
+_fzf_complete_fvim()    { _fzf_fasd_completion -f "$@"; }
+_fzf_complete_cdf()     { _fzf_fasd_completion -d "$@"; }
 
 # --walker=[file][,dir][,follow][,hidden]
-_fzf_complete_ls()  { _fzf_complete_pwd d "$@"; }
-_fzf_complete_l()   { _fzf_complete_ls "$@"; }
-_fzf_complete_lsa() { _fzf_complete_ls "$@"; }
-_fzf_complete_lah() { _fzf_complete_ls "$@"; }
-_fzf_complete_laf() { _fzf_complete_pwd f "$@"; }
+_fzf_complete_ls()      { _fzf_fd_completion d "$@"; }
+_fzf_complete_l()       { _fzf_complete_ls "$@"; }
+_fzf_complete_lsa()     { _fzf_complete_ls "$@"; }
+_fzf_complete_lah()     { _fzf_complete_ls "$@"; }
+_fzf_complete_laf()     { _fzf_fd_completion f "$@"; }
 
-_fzf_complete_cat() { _fzf_complete_pwd f "$@"; }
-_fzf_complete_bat() { _fzf_complete_cat "$@"; }
-_fzf_complete_vim()  { _fzf_complete_pwd f "$@"; }
-_fzf_complete_nvim()   { _fzf_complete_vim "$@"; }
-_fzf_complete_neovim() { _fzf_complete_vim "$@"; }
+_fzf_complete_cat()     { _fzf_fd_completion f "$@"; }
+_fzf_complete_bat()     { _fzf_complete_cat "$@"; }
+_fzf_complete_vim()     { _fzf_fd_completion f "$@"; }
+_fzf_complete_nvim()    { _fzf_complete_vim "$@"; }
+_fzf_complete_neovim()  { _fzf_complete_vim "$@"; }
