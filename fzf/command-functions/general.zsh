@@ -2,6 +2,7 @@ source $ZSHREP/fzf/presets/main.sh
 
 [[ $(alias lah) ]] && unalias lah
 lah() { command /usr/bin/ls -laAh "$@"; }
+laf() { command /usr/bin/ls -laAh "$@"; }
 alias lah='lah --color=tty'
 
 fvim() {
