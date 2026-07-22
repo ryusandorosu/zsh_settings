@@ -16,8 +16,8 @@ gitcmd+=(
   --full-name
 )
 
-"${gitcmd[@]}" | \
-fzf "${fzfdefaults[@]}" \
-    "${previewcmd[@]}" \
-    "${briefinfo[@]}" \
-    "${bindexec[@]}"
+"${gitcmd[@]}" \
+| fzf "${fzfdefaults[@]}" \
+      "${previewcmd[@]}" \
+      "${briefinfo[@]}" \
+      "${bindexec[@]}"

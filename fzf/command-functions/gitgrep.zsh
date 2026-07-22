@@ -2,21 +2,20 @@ source $ZSHREP/fzf/presets/main.sh
 
 # git diff --name-only; git diff --compact-summary; --color-moved=default; --diff-algorithm=default; --find-renames
 # ^ same for git show ^, may be useful for gitlog.zsh / preview_git()
-# idk why $repo_path substitution in cmd array and separately as a variable doesnt work properly in these functions unlike in gitadd/gitvim. sort out it later.
 
+# reminder that preview of this function is likely rigged. to sort out what is going on.
 gitgrepf() {
   gitcmd=(git)
   if   [[ -d "$1" ]]; then gitcmd+=(-C "$1");
   elif [[ -f "$1" ]]; then gitcmd+=(-C "$(dirname $1)"); fi
-  # repo_path="$("${gitcmd[@]}" rev-parse --show-toplevel)/" # not used o_O
 
   gitcmd+=(grep)
   cmd=("${gitcmd[@]}")
   cmd+=(".")
 
-  "${cmd[@]}" | \
-  fzf "${fzfdefaults[@]}" \
-  --preview ''${(j: :)gitcmd[@]}' --heading --function-context --line-number --color {3}'
+  "${cmd[@]}" \
+  | fzf "${fzfdefaults[@]}" \
+    --preview ''${(j: :)gitcmd[@]}' --heading --function-context --line-number --color {3}'
    # --function-context: is exclusive with --*context flags
 }
 
@@ -32,7 +31,7 @@ gitgrepb() {
     "."
   )
 
-  "${gitcmd[@]}" | \
-  fzf "${fzfdefaults[@]}" \
-  --preview 'bat --color=always --style=changes,numbers --highlight-line=$(cut -d: -f2 <<< {1}) '$repo_path'$(cut -d: -f1 <<< {1})'
+  "${gitcmd[@]}" \
+  | fzf "${fzfdefaults[@]}" \
+    --preview 'bat --color=always --style=changes,numbers --highlight-line=$(cut -d: -f2 <<< {1}) '$repo_path'$(cut -d: -f1 <<< {1})'
 }
