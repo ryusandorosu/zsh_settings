@@ -26,14 +26,19 @@ _fzf_complete_which() {
       print "Linked to: $whichlinked"
     }
     case "$(dirname $(which {}))" in
+
       /bin|/sbin|/usr/bin|/usr/sbin) apt-cache show $(dpkg -S {} | cut -d: -f1) ;;
+
       *brew/bin)                                                   brew info {} ;;
+
       /snap/bin|/usr/bin/snap)                                     snap info {} ;;
+
       $HOME/.local/bin)
         [[ ! -L $(which {}) ]] && {
           local bin={}
           local record=$(
-            rg -loP "(/?\.\.)+/bin/$bin(,??)" $HOME/.local/lib/python3.*/site-packages/*.dist-info/RECORD
+            rg -loP "(/?\.\.)+/bin/$bin(,??)" \
+            $HOME/.local/lib/python3.*/site-packages/*.dist-info/RECORD
           )
           local pkgdir=${record:h}
           local pkgname=${${${pkgdir:t}%.dist-info}%-[0-9]*}
@@ -43,6 +48,7 @@ _fzf_complete_which() {
           local venvpack=$(dirname $(dirname $whichlinked))
                                 bat --color=always $venvpack/pipx_metadata.json
         }                                                                       ;;
+
       /usr/local/bin)
         [[ -L $(which {}) ]] && {
           local locallib=$(cut -d/ -f5 <<< $whichlinked)
@@ -51,6 +57,7 @@ _fzf_complete_which() {
             node_modules)              npm info $(cut -d/ -f6 <<< $whichlinked) ;;
           esac
         }                                                                       ;;
+
     esac
     ' \
     -- "$@" < <(
