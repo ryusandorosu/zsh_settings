@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 source $ZSHREP/fzf/presets/main.sh
 
-if [[ $# == 1 ]]; then
+if [[ $# == 1 && "$(file $1)" =~ "No such file or directory" ]]; then
 
   git_commands=(
     add
@@ -44,17 +44,26 @@ execcmd=("${gitcmd[@]}")
 execcmd+=("$gitsubcmd")
 bind_exec "${(j: :)execcmd[@]}" "${repo_path}{+2}"
 
-### --find-renames has no effect -_-
+### --find-renames has no effect for git status
 gitcmd+=(
   status
-  --porcelain
-  --find-renames
+  --porcelain=v2
   "${gitignore_arg[@]}"
 )
 
-"${gitcmd[@]}" | \
-fzf "${fzfdefaults[@]}" \
-    "${previewcmd[@]}" \
-    "${briefinfo[@]}" \
-    "${bindexec[@]}" \
-    --multi
+"${gitcmd[@]}" \
+| awk '{
+    if ($1 == "?") {
+      status="??"
+      path=$2
+    } else {
+      status=$2
+      path=$9
+    }
+    print status " " path
+  }' \
+| fzf "${fzfdefaults[@]}" \
+      "${previewcmd[@]}" \
+      "${briefinfo[@]}" \
+      "${bindexec[@]}" \
+      --multi
