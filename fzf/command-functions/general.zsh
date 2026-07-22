@@ -1,4 +1,5 @@
 source $ZSHREP/fzf/presets/main.sh
+source $ZSHREP/common/cmd_display.sh
 
 [[ $(alias lah) ]] && unalias lah
 lah() { command /usr/bin/ls -laAh "$@"; }
@@ -12,8 +13,12 @@ fvim() {
     fzf --tac "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
   ) || return
   [[ -z "$file" ]] && return
-  # сделать подстановку в командную строку вместо перехода напрямую из функции
-  command "$(_get_editor)" "$file"
+  # command "$(_get_editor)" "$file"
+  zsh_cmd=(
+    "$(_get_editor)"
+    "$file"
+  )
+  zsh_eval "${zsh_cmd[@]}"
 }
 
 cdf() {
@@ -22,8 +27,12 @@ cdf() {
     fasd -d | awk '{print $2}' |
     fzf --tac "${fzfdefaults[@]}" "${previewcmd[@]}" "${briefinfo[@]}"
   ) || return
-  # сделать подстановку в командную строку вместо перехода напрямую из функции
-  cd "$dir"
+  # cd "$dir"
+  zsh_cmd=(
+    cd
+    "$dir"
+  )
+  zsh_eval "${zsh_cmd[@]}"
 }
 
 ffind() {
