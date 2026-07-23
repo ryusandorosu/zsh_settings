@@ -8,9 +8,13 @@ _cmd_bat_simple() {
 }
 
 _cmd_bat_preview() {
-  local path=$1 style=$2 opt=$3
+  local path=$1 style=$2 #opt=$3
+  shift 2
   [[ -n "$style" && "$style" == git ]] && style="--style=changes,numbers"
-  [[ -n "$opt"   && "$opt"   == --* ]] && style+=" $opt"
+  # [[ -n "$opt"   && "$opt"   == --* ]] && style+=" $opt"
+  for opt in "$@"; do
+    [[ "$opt" == --* ]] && style+=" $opt"
+  done
   print -r -- "
     ft=\$(file --brief '$path')
     case \"\$ft\" in
