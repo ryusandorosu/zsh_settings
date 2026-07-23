@@ -10,10 +10,10 @@ _fzf_complete_ssh() {
   --preview '
   ssh -G {} 2>/dev/null |
   awk "
-  /^hostname / {host=\$2}
-  /^user /     {user=\$2}
-  /^identityfile /     {identity=\$2}
-  /^port /     {port=\$2}
+  /^hostname /          {host=\$2}
+  /^user /              {user=\$2}
+  /^identityfile /      {identity=\$2}
+  /^port /              {port=\$2}
   END {
     print \"Host:\",host
     print \"User:\",user
@@ -24,7 +24,7 @@ _fzf_complete_ssh() {
   "
 
   host=$(ssh -G {} 2>/dev/null | awk "/^hostname /{print \$2; exit}")
-  ping -c1 "$host"
+  ping -c1 -W1 "$host"
   ' \
   -- "$@" < <(_fzf_ssh_hosts)
 }
