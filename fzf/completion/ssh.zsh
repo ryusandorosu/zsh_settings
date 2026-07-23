@@ -12,11 +12,13 @@ _fzf_complete_ssh() {
   awk "
   /^hostname / {host=\$2}
   /^user /     {user=\$2}
+  /^identityfile /     {identity=\$2}
   /^port /     {port=\$2}
   END {
     print \"Host:\",host
     print \"User:\",user
     print \"Port:\",port
+    print \"Identity:\",identity
     print \"\"
   }
   "
