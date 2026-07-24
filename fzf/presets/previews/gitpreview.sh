@@ -25,29 +25,41 @@ preview_git() {
     --preview
     "
     __status='$4'
-    case \"\$__status\" in
+    __q='{q}'
+    __out() {
+      case \"\$__status\" in
 
-      '??'|*A*)
-        test -f '$path' && \
-        bat --color=always --style=changes,numbers '$path' \
-        || tree -C '$path'                                    ;;
+        '??'|*A*)
+          test -f '$path' && \
+          bat --color=always --style=changes,numbers '$path' \
+          || tree -C '$path'                                    ;;
 
-      *D*)                                               exit ;;
+        *D*)                                               exit ;;
 
-      'M.') git $repo_flag $gitcommand --cached \
-            --color=always --word-diff=plain $select          ;;
+        'M.') git $repo_flag $gitcommand --cached \
+              --color=always --word-diff=plain $select          ;;
 
-      MM)   print \"Unstaged changes:\n\"
-            git $repo_flag $gitcommand \
-            --color=always --word-diff=plain $select
-            print \"\nStaged changes:\n\"
-            git $repo_flag $gitcommand --cached \
-            --color=always --word-diff=plain $select          ;;
+        MM)   print \"Unstaged changes:\n\"
+              git $repo_flag $gitcommand \
+              --color=always --word-diff=plain $select
+              print \"\nStaged changes:\n\"
+              git $repo_flag $gitcommand --cached \
+              --color=always --word-diff=plain $select          ;;
 
-      *)    git $repo_flag $gitcommand \
-            --color=always --word-diff=plain $select          ;;
+        *)    git $repo_flag $gitcommand \
+              --color=always --word-diff=plain $select          ;;
 
-    esac
+      esac
+    }
+    if [[ -n \"\$__q\" ]]; then __out | \
+      rg --passthru --color=always \
+         --colors 'match:none' \
+         --colors 'match:bg:51,51,51' \
+         --colors 'match:fg:yellow' \
+         --colors 'match:style:bold' \
+         --colors 'highlight:bg:51,51,51' \
+         --fixed-strings --regexp \"\$__q\"
+    else __out; fi
     "
     --preview-window
     'right,67%,wrap-word'
