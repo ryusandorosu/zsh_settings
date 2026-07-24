@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 source $ZSHREP/fzf/presets/main.sh
 
+# seems like this is not needed anymore
+
 gitcmd=(git)
 
 if   [[ -d "$1" ]]; then gitcmd+=(-C "$1");

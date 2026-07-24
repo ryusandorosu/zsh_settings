@@ -22,9 +22,10 @@ bind_fileinfo() {
 }
 
 bind_exec() {
+  local bin=$1 file=$2 arg=$3
   bindexec=(
     --bind
-    "enter:become($1 $2)"
+    "enter:become($bin $file $arg)"
   )
 }
 
