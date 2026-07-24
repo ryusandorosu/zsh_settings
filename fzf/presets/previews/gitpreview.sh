@@ -52,16 +52,21 @@ preview_git() {
       esac
     }
     if [[ -n \"\$__q\" ]]; then __out | \
-      rg --passthru --color=always \
+      rg --passthru \
+         --color=always \
          --colors 'match:none' \
          --colors 'match:bg:51,51,51' \
          --colors 'match:fg:yellow' \
          --colors 'match:style:bold' \
          --colors 'highlight:bg:51,51,51' \
-         --fixed-strings --regexp \"\$__q\"
+         --smart-case \
+         --context=15 \
+         --fixed-strings \
+         --regexp \"\$__q\"
     else __out; fi
     "
     --preview-window
     'right,67%,wrap-word'
   )
+  # possibly replace ripgrep with delta?
 }
