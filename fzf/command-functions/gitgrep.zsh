@@ -38,5 +38,11 @@ gitgrepb() {
     --preview "$(
       _cmd_bat_context "${repo_path}{1}" {2}
     )"
-    # _cmd_bat_preview "${repo_path}{1}" git '--highlight-line={2}'
+
+  # preview_bat_contexted "${repo_path}{1}" {2}
+  # "${gitcmd[@]}" \
+  # | fzf "${fzfdefaults[@]}" \
+  #       --delimiter : \
+  #       "${previewcmd[@]}"
+
 }
